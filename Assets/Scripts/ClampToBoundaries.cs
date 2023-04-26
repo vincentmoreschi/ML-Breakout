@@ -16,7 +16,7 @@ public class ClampToBoundaries : MonoBehaviour
     // LateUpdate is called after all Update functions have been called
     void LateUpdate()
     {
-        _objectWidthHalf = transform.GetComponent<SpriteRenderer>().bounds.extents.x;  // bounds.extents.x is half of the object's width
+        _objectWidthHalf = gameObject.GetComponent<SpriteRenderer>().bounds.extents.x;  // bounds.extents.x is half of the object's width
 
         // Clamp the X position based on the screen boundaries and the object's width
         Vector2 newPosition = transform.position;
