@@ -44,6 +44,9 @@ TagManager:
   - name: Paddle
     uniqueID: 1527525009
     locked: 0
+  - name: Bricks
+    uniqueID: 1351070581
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
