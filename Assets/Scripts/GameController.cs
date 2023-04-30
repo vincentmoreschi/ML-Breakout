@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private string singlePlayerMode = "singleLevel1";
+    [SerializeField] private string singlePlayerMode = "Breakout";
     [SerializeField] private string versusMode = "versusLevel1";
     [SerializeField] private string optionsView = "optionsMenu";
 

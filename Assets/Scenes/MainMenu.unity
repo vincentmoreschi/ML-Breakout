@@ -525,7 +525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5176471, g: 0.78823537, b: 0.93725497, a: 0.39215687}
+  m_Color: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -579,7 +579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f909101b61e238e4cba3e7b4dceb84dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  singlePlayerMode: singleLevel1
+  singlePlayerMode: Breakout
   versusMode: versusLevel1
   optionsView: optionsMenu
 --- !u!4 &899382540
@@ -1408,7 +1408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f909101b61e238e4cba3e7b4dceb84dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  singlePlayerMode: singleLevel1
+  singlePlayerMode: Breakout
   versusMode: versusLevel1
   optionsView: optionsMenu
 --- !u!1 &1823241765
