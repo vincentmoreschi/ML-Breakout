@@ -10,11 +10,22 @@ public class Brick : MonoBehaviour
 
     private SpriteRenderer _sr;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         _sr = GetComponent<SpriteRenderer>();
-        _sr.sprite = LevelManager.Instance.brickSprites[hp - 1];  // Delete later once bricks are added programatically
+    }
+
+    /// <summary>
+    /// Initialize the brick.
+    /// </summary>
+    /// <param name="containerTransform">The transform component of the parent container.</param>
+    /// <param name="sprite">The brick's sprite image.</param>
+    /// <param name="hitpoints">The brick's hitpoints.</param>
+    internal void Init(Transform containerTransform, Sprite sprite, int hitpoints)
+    {
+        transform.SetParent(containerTransform);
+        _sr.sprite = sprite;
+        hp = hitpoints;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -37,7 +48,7 @@ public class Brick : MonoBehaviour
         }
         else
         {
-            _sr.sprite = LevelManager.Instance.brickSprites[hp - 1];
+            _sr.sprite = LevelController.Instance.brickSprites[hp - 1];
         }
     }
 
