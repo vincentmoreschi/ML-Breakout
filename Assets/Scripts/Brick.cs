@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
-    public int hp = 1;  // Change later once bricks are added programatically
+    public static event Action OnBrickDestruction;
+
+    public int hp = 1;
     public ParticleSystem DestructionEffect;
 
     private SpriteRenderer _sr;
@@ -43,6 +45,8 @@ public class Brick : MonoBehaviour
         hp--;
         if (hp <= 0)
         {
+            LevelController.Instance.RemainingBricks--;
+            OnBrickDestruction?.Invoke();
             ApplyDestructionEffect();
             Destroy(gameObject);
         }
