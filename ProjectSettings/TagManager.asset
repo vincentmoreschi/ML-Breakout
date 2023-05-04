@@ -38,11 +38,14 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Paddle
-    uniqueID: 1527525009
-    locked: 0
   - name: Background
     uniqueID: 2758209807
+    locked: 0
+  - name: Bricks
+    uniqueID: 1351070581
+    locked: 0
+  - name: Paddle
+    uniqueID: 1527525009
     locked: 0
   - name: Default
     uniqueID: 0
