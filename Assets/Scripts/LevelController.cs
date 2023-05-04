@@ -23,28 +23,61 @@ public class LevelController : MonoBehaviour
     }
     #endregion
 
-    public List<int[,]> levelsData { get; private set; }  // To be loaded from Resources/levels.txt
-    public List<Brick> bricks { get; private set; }  // List of all instantiated bricks
-    public Sprite[] brickSprites;  // { 1 hp brick, 2 hp brick, 3 hp brick }
-    public Brick brickPrefab;
+    public int RemainingBricks { get; set; }  // Number of bricks left in the current level
 
     public int currentLevel;
 
-    private GameObject _bricksContainer;  // Container to hold instantiated bricks
+    public List<int[,]> levelsData;  // To be loaded from Resources/levels.txt
+    public Sprite[] brickSprites;  // { 1 hp brick, 2 hp brick, 3 hp brick }
+    public Brick brickPrefab;
 
     private int _levelRows = 15;
     private int _levelCols = 12;
-
     private Vector3 _initialBrickPosition = new Vector3(-1.99f, 3.377f, 0f);  // Top-left brick position
     private float _shift = 0.365f;  // Brick width + padding
+
+    private GameObject _bricksContainer;  // Container to hold instantiated bricks
 
     // Start is called before the first frame update
     void Start()
     {
+        Brick.OnBrickDestruction += LevelCompletion;
+
         _bricksContainer = new GameObject("Bricks Container");
 
         levelsData = LoadLevelsData();
         GenerateLevel(currentLevel);
+    }
+
+    public bool CheckLevelCompletion()
+    {
+        return RemainingBricks == 0;
+    }
+    public bool CheckFinalLevel()
+    {
+        return currentLevel == levelsData.Count;
+    }
+
+    internal void GenerateNextLevel()
+    {
+        currentLevel++;
+        GenerateLevel(currentLevel);
+    }
+
+    private void LevelCompletion()
+    {
+        if (CheckLevelCompletion())
+        {
+            if (CheckFinalLevel())
+            {
+                // TODO: show victory scene
+            }
+            else
+            {
+                // TODO: level change visual?
+                GenerateNextLevel();
+            }
+        }
     }
 
     /// <summary>
@@ -55,7 +88,7 @@ public class LevelController : MonoBehaviour
     {
         int[,] levelData = levelsData[currentLevel - 1];
 
-        bricks = new List<Brick>();
+        RemainingBricks = 0;
 
         float currentX = _initialBrickPosition.x;
         float currentY = _initialBrickPosition.y;
@@ -70,7 +103,7 @@ public class LevelController : MonoBehaviour
                     Brick brick = Instantiate(brickPrefab, new Vector3(currentX, currentY, _initialBrickPosition.z), Quaternion.identity) as Brick;
                     brick.Init(_bricksContainer.transform, brickSprites[brickHp - 1], brickHp);
 
-                    bricks.Add(brick);
+                    RemainingBricks++;
                 }
 
                 currentX += _shift;
