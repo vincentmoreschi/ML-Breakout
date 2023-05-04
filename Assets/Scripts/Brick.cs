@@ -45,14 +45,14 @@ public class Brick : MonoBehaviour
         hp--;
         if (hp <= 0)
         {
-            LevelController.Instance.RemainingBricks--;
+            LevelManager.Instance.RemainingBricks--;
             OnBrickDestruction?.Invoke();
             ApplyDestructionEffect();
             Destroy(gameObject);
         }
         else
         {
-            _sr.sprite = LevelController.Instance.brickSprites[hp - 1];
+            _sr.sprite = LevelManager.Instance.brickSprites[hp - 1];
         }
     }
 

@@ -5,10 +5,10 @@ using System.Linq;
 using TMPro.EditorUtilities;
 using UnityEngine;
 
-public class LevelController : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
     #region Singleton
-    public static LevelController Instance { get; private set; }
+    public static LevelManager Instance { get; private set; }
 
     private void Awake()
     {
@@ -41,8 +41,6 @@ public class LevelController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Brick.OnBrickDestruction += LevelCompletion;
-
         _bricksContainer = new GameObject("Bricks Container");
 
         levelsData = LoadLevelsData();
@@ -62,22 +60,6 @@ public class LevelController : MonoBehaviour
     {
         currentLevel++;
         GenerateLevel(currentLevel);
-    }
-
-    private void LevelCompletion()
-    {
-        if (CheckLevelCompletion())
-        {
-            if (CheckFinalLevel())
-            {
-                // TODO: show victory scene
-            }
-            else
-            {
-                // TODO: level change visual?
-                GenerateNextLevel();
-            }
-        }
     }
 
     /// <summary>

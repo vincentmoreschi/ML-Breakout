@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,27 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         } else {
             GameManager._instance = this;
+        }
+    }
+
+    void Start()
+    {
+        Brick.OnBrickDestruction += LevelCompletion;
+    }
+
+    private void LevelCompletion()
+    {
+        if (LevelManager.Instance.CheckLevelCompletion())
+        {
+            if (LevelManager.Instance.CheckFinalLevel())
+            {
+                // TODO: show victory scene
+            }
+            else
+            {
+                // TODO: level change visual?
+                LevelManager.Instance.GenerateNextLevel();
+            }
         }
     }
 
