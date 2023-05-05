@@ -17,25 +17,35 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public int score { get; set; }
+    public int lives { get; set; }
+
+    public int initialLives;
+    public int brickPoints;  // Number of points given for each brick hitpoint
+
     void Start()
     {
-        Brick.OnBrickDestruction += LevelCompletion;
+        Brick.OnBrickDestruction += UpdateScore;
+
+        lives = initialLives;
+
+        UIManager.Instance.UpdateLevelText();
+        UIManager.Instance.UpdateLivesText();
     }
 
-    private void LevelCompletion()
+    private void UpdateScore(Brick brick)
     {
-        if (LevelManager.Instance.CheckLevelCompletion())
-        {
-            if (LevelManager.Instance.CheckFinalLevel())
-            {
-                // TODO: show victory scene
-            }
-            else
-            {
-                // TODO: level change visual?
-                LevelManager.Instance.GenerateNextLevel();
-            }
-        }
+        score += brick.initialHp * brickPoints;
+        UIManager.Instance.UpdateScoreText();
+    }
+
+    public void OnBallDeath(Ball obj)
+    {
+        //determine if ball is gone
+        //reduce lives
+        //if lives are < 1
+        //show game over
+        //else 
     }
 
     public bool hasGameStarted { get; set;}

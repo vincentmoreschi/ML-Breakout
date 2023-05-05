@@ -18,30 +18,4 @@ public class GameController : MonoBehaviour
     public void optionsButton() {
         SceneManager.LoadScene(optionsView);
     }
-
-    public int lives{ get; set; }
-
-    public int score{ get; set; }
-
-    public int lifeCount = 1;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        this.lives = this.lifeCount;
-    }
-
-    public void OnBallDeath(Ball obj) {
-        //determine if ball is gone
-        //reduce lives
-        //if lives are < 1
-        //show game over
-        //else 
-    }
-
-    // // Update is called once per frame
-    // void Update()
-    // {
-
-    // }
 }
