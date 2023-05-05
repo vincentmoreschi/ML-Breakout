@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Ball : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class Ball : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         ballSpawn = GameObject.Find("BallSpawn");
-       
+       transform.position = ballSpawn.transform.position;
     }
 
     // Update is called once per frame
@@ -29,4 +30,11 @@ public class Ball : MonoBehaviour
             rb.velocity = Vector3.ClampMagnitude(rb.velocity,maxVelocity);
         }
     }
+    // Method for ball death.
+    // public static event Action<Ball> OnBallDeath;
+    
+    // public void Death() {
+    //     OnBallDeath?.Invoke(this);
+    //     Destroy(ballSpawn, 1);
+    // }
 }

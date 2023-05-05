@@ -5,15 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Breakout.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: a04a2a7c1a4d8614f8ef9cc0893cf950
   - enabled: 1
     path: Assets/Scenes/optionsMenu.unity
     guid: 3eb71a05b5b372d4f9bbd9158a75f789
   - enabled: 1
-    path: Assets/Scenes/singleLevel1.unity
-    guid: d23f8e5521e87704b98222ed7953dc5b
+    path: Assets/Scenes/Breakout.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/versusLevel1.unity
     guid: 5b34d1d433030624f825b279dbd72460
