@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -27,9 +26,10 @@ public class LevelManager : MonoBehaviour
 
     public int currentLevel;
 
-    public List<int[,]> levelsData;  // To be loaded from Resources/levels.txt
     public Sprite[] brickSprites;  // { 1 hp brick, 2 hp brick, 3 hp brick }
     public Brick brickPrefab;
+
+    private List<int[,]> _levelsData;  // To be loaded from Resources/levels.txt
 
     private int _levelRows = 15;
     private int _levelCols = 12;
@@ -41,10 +41,31 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Brick.OnBrickDestruction += LevelCompletion;
+
         _bricksContainer = new GameObject("Bricks Container");
 
-        levelsData = LoadLevelsData();
+        _levelsData = LoadLevelsData();
         GenerateLevel(currentLevel);
+    }
+
+    private void LevelCompletion(Brick brick)
+    {
+        if (CheckLevelCompletion())
+        {
+            if (CheckFinalLevel())
+            {
+                // TODO: show victory scene
+            }
+            else
+            {
+                // TODO: level change visual?
+                currentLevel++;
+
+                GenerateNextLevel();
+                UIManager.Instance.UpdateLevelText();
+            }
+        }
     }
 
     public bool CheckLevelCompletion()
@@ -53,12 +74,11 @@ public class LevelManager : MonoBehaviour
     }
     public bool CheckFinalLevel()
     {
-        return currentLevel == levelsData.Count;
+        return currentLevel == _levelsData.Count;
     }
 
-    internal void GenerateNextLevel()
+    private void GenerateNextLevel()
     {
-        currentLevel++;
         GenerateLevel(currentLevel);
     }
 
@@ -68,7 +88,7 @@ public class LevelManager : MonoBehaviour
     /// <param name="currentLevel">Current level in the game.</param>
     private void GenerateLevel(int currentLevel)
     {
-        int[,] levelData = levelsData[currentLevel - 1];
+        int[,] levelData = _levelsData[currentLevel - 1];
 
         RemainingBricks = 0;
 
@@ -102,7 +122,7 @@ public class LevelManager : MonoBehaviour
     /// Within the text file:
     /// The end of a level is signified by "---".
     /// Each level must consist of _levelRows rows and _levelCols columns, which identify brick positions. These positions are separated by commas.
-    /// Integers represent bricks and their associated hp.
+    /// Integers represent bricks and their associated hitpoints.
     ///   0: No brick
     ///   1: Brick with 1 hp
     ///   2: Brick with 2 hp

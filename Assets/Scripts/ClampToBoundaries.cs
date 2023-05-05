@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class ClampToBoundaries : MonoBehaviour
 {
+    public GameObject background;
+
     private Vector2 _screenBounds;
     private float _objectWidthHalf;
 
     // Start is called before the first frame update
     void Start()
     {
-        _screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+        // _screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+        _screenBounds = background.GetComponent<SpriteRenderer>().bounds.extents;
     }
 
     // LateUpdate is called after all Update functions have been called

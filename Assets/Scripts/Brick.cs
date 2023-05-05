@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
-    public static event Action OnBrickDestruction;
+    public static event Action<Brick> OnBrickDestruction;
 
     public int hp = 1;
+    public int initialHp { get; private set; }
     public ParticleSystem DestructionEffect;
 
     private SpriteRenderer _sr;
@@ -27,7 +28,7 @@ public class Brick : MonoBehaviour
     {
         transform.SetParent(containerTransform);
         _sr.sprite = sprite;
-        hp = hitpoints;
+        hp = initialHp = hitpoints;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -46,7 +47,7 @@ public class Brick : MonoBehaviour
         if (hp <= 0)
         {
             LevelManager.Instance.RemainingBricks--;
-            OnBrickDestruction?.Invoke();
+            OnBrickDestruction?.Invoke(this);
             ApplyDestructionEffect();
             Destroy(gameObject);
         }
