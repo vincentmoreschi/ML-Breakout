@@ -114,7 +114,7 @@ public class LevelManager : MonoBehaviour
         List<int[,]> levelsData = new List<int[,]>();
 
         TextAsset levelsAsset = Resources.Load("levels") as TextAsset;
-        string[] lines = levelsAsset.text.TrimEnd().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
+        string[] lines = levelsAsset.text.TrimEnd().Split(new string[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
         int[,] curLevel = new int[_levelRows, _levelCols];
         int matrixRow = 0;

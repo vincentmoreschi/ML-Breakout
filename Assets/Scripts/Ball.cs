@@ -16,7 +16,7 @@ public class Ball : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         ballSpawn = GameObject.Find("BallSpawn");
-       
+       transform.position = ballSpawn.transform.position;
     }
 
     // Update is called once per frame
