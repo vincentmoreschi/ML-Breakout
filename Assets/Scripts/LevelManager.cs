@@ -63,7 +63,10 @@ public class LevelManager : MonoBehaviour
                 currentLevel++;
 
                 GenerateNextLevel();
+                BallManager.Instance.ResetBall();
                 UIManager.Instance.UpdateLevelText();
+
+                GameManager.Instance.gameStarted = false;
             }
         }
     }
