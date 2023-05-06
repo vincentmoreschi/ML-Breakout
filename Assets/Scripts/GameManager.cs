@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     public int score { get; set; }
     public int lives { get; set; }
+    public bool gameStarted { get; set; }
 
     public int initialLives;
     public int brickPoints;  // Number of points given for each brick hitpoint
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
         Brick.OnBrickDestruction += UpdateScore;
 
         lives = initialLives;
+        gameStarted = false;
 
         UIManager.Instance.UpdateLevelText();
         UIManager.Instance.UpdateLivesText();
@@ -47,7 +49,4 @@ public class GameManager : MonoBehaviour
         //show game over
         //else 
     }
-
-    public bool hasGameStarted { get; set;}
-
 }

@@ -33,16 +33,6 @@ public class Brick : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Ball ball = collision.gameObject.GetComponent<Ball>();
-        CollisionLogic(ball);
-    }
-
-    /// <summary>
-    /// Handles collision logic.
-    /// </summary>
-    /// <param name="ball">The ball object that is colliding with the brick.</param>
-    private void CollisionLogic(Ball ball)
-    {
         hp--;
         if (hp <= 0)
         {
