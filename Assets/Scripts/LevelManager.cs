@@ -89,7 +89,7 @@ public class LevelManager : MonoBehaviour
     /// Generate the current level.
     /// </summary>
     /// <param name="currentLevel">Current level in the game.</param>
-    private void GenerateLevel(int currentLevel)
+    public void GenerateLevel(int currentLevel)
     {
         int[,] levelData = _levelsData[currentLevel - 1];
 
@@ -166,4 +166,10 @@ public class LevelManager : MonoBehaviour
 
         return levelsData;
     }
+
+    public void reloadLevel(int level) {
+        this.currentLevel = level;
+        this.GenerateLevel(this.currentLevel);
+    }
+
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,16 +21,18 @@ public class GameManager : MonoBehaviour
     public int score { get; set; }
     public int lives { get; set; }
     public bool gameStarted { get; set; }
+    public GameObject gameOverScreen;
 
-    public int initialLives;
+    public int initialLives = 3;
     public int brickPoints;  // Number of points given for each brick hitpoint
 
     void Start()
     {
         Brick.OnBrickDestruction += UpdateScore;
 
-        lives = initialLives;
+        this.lives = this.initialLives;
         gameStarted = false;
+        Ball.OnBallDeath += OnBallDeath;
 
         UIManager.Instance.UpdateLevelText();
         UIManager.Instance.UpdateLivesText();
@@ -41,12 +44,34 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.UpdateScoreText();
     }
 
-    public void OnBallDeath(Ball obj)
+    public void OnBallDeath(Ball ball)
     {
-        //determine if ball is gone
-        //reduce lives
-        //if lives are < 1
-        //show game over
-        //else 
+        Debug.Log(BallManager.Instance.Balls.Count.ToString());
+        if (BallManager.Instance.Balls.Count <= 0) {
+            Debug.Log("Balls count is 0");
+            //gameStarted = false;
+            this.lives--;
+            UIManager.Instance.UpdateLivesText();
+            if (this.lives < 1) {
+                gameOverScreen.SetActive(true);
+            } else {
+                // reload level
+                BallManager.Instance.ResetBall();
+
+                //pause the game
+                gameStarted = false;
+
+                //reload level if retry option chosen
+                // LevelManager.Instance.GenerateLevel(LevelManager.Instance.currentLevel);
+            }
+        }
+    }
+
+    public void RestartGame() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void LoadMainMenu() {
+        SceneManager.LoadScene("MainMenu",LoadSceneMode.Single);
     }
 }
