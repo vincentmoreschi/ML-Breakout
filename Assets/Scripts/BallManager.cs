@@ -48,7 +48,7 @@ public class BallManager : MonoBehaviour
         }
     }
 
-    private void CreateBall(Ball ballPrefab)
+    public void CreateBall(Ball ballPrefab)
     {
         Vector3 paddlePosition = Paddle.Instance.transform.position;
         Vector3 ballPosition = new Vector3(paddlePosition.x, paddlePosition.y + padding, paddlePosition.z);

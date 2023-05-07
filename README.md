@@ -11,10 +11,13 @@ How to setup ml-agents
     pyenv install 3.7.9
     pyenv global 3.7.9 
    ```
-Follow the below to setup the env
+- These commands install python 3.7 and make it so any time you use python it utilizes that version when set to global. 
+  
+Follow the steps below to setup the env
   
   
 ## py-env
+We setup a pyenv which we will activate any time we need to train models.
 ```
 mkdir python-envs
 python -m venv python-envs/ML-Breakout-env
@@ -30,7 +33,7 @@ run ```mlagents-learn --help``` to test
 
 ## Add packages to project
 
-They might already be added, but just in case here is how to check and add them.
+They might already be added in the project, but just in case here is how to check and add them.
 
 
 1. navigate to the menu Window -> Package Manager.
