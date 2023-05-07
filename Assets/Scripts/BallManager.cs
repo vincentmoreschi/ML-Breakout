@@ -10,7 +10,7 @@ public class BallManager : MonoBehaviour
     public float ballStartForce;
     public float padding;  // Padding between ball and paddle
 
-    private Ball _ball;
+    public Ball _ball;
     private Rigidbody2D _ballRb;
 
     private void Awake()
@@ -55,11 +55,17 @@ public class BallManager : MonoBehaviour
 
         _ball = Instantiate(ballPrefab, ballPosition, Quaternion.identity) as Ball;
         _ballRb = _ball.GetComponent<Rigidbody2D>();
+
+        this.Balls = new List<Ball> {
+            _ball
+        };
     }
 
     internal void ResetBall()
     {
-        Destroy(_ball.gameObject);
+        foreach (var ball in this.Balls) {
+            Destroy(ball);
+        }
         CreateBall(ballRedPrefab);
     }
 

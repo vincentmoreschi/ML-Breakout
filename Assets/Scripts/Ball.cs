@@ -20,20 +20,22 @@ public class Ball : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.y < minY){
-            transform.position= ballSpawn.transform.position;
-            rb.velocity = Vector3.zero;
-        }
-        if(rb.velocity.magnitude > maxVelocity){
-            rb.velocity = Vector3.ClampMagnitude(rb.velocity,maxVelocity);
+        if (ballSpawn) {
+            if(transform.position.y < minY){
+                transform.position = ballSpawn.transform.position;
+                rb.velocity = Vector3.zero;
+            }
+            if(rb.velocity.magnitude > maxVelocity){
+                rb.velocity = Vector3.ClampMagnitude(rb.velocity,maxVelocity);
+            }
         }
     }
 
-    // Method for ball death.
-    // public static event Action<Ball> OnBallDeath;
+    //Method for ball death.
+    public static event Action<Ball> OnBallDeath;
 
-    // public void Death() {
-    //     OnBallDeath?.Invoke(this);
-    //     Destroy(ballSpawn, 1);
-    // }
+    public void Death() {
+        OnBallDeath?.Invoke(this);
+        Destroy(gameObject);
+    }
 }
