@@ -5,7 +5,24 @@ using UnityEngine;
 
 public class Paddle : MonoBehaviour
 {
+    #region Singleton
+    public static Paddle Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+    #endregion
+
     public float speed;
+    public float horizontalBounceMultiplier;  // Affects how much the ball bounces left or right during collisions
 
     private Vector3 _paddlePositionInitial;
 
@@ -32,5 +49,19 @@ public class Paddle : MonoBehaviour
             Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
             transform.Translate(speed * Time.deltaTime * direction);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Rigidbody2D ballRb = collision.gameObject.GetComponent<Rigidbody2D>();
+        Vector2 contactPoint = collision.GetContact(0).point;
+        Vector2 paddleCenter = transform.position;
+
+        ballRb.velocity = Vector2.zero;
+
+        float diff = contactPoint.x - paddleCenter.x;
+        float horizontalForce = diff * horizontalBounceMultiplier;  // Horizontal force applied to the ball, magnitude depends on contact point
+        Vector2 force = new Vector2(horizontalForce, BallManager.Instance.ballStartForce);
+        ballRb.AddForce(force);
     }
 }

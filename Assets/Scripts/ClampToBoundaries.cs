@@ -12,7 +12,6 @@ public class ClampToBoundaries : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // _screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         _screenBounds = background.GetComponent<SpriteRenderer>().bounds.extents;
     }
 
