@@ -12,14 +12,14 @@ public class PaddleAgent : Agent
     private Ball ball;
     void Start()
     {
-       BallManager.Instance.CreateBall(ball);
+       ball = BallManager.Instance.ballRedPrefab;
        bricks = LevelManager.Instance.RemainingBricks;
     }
 
     public override void OnEpisodeBegin(){
-        GameManager.Instance.gameStarted = true;
         
-        if(ball.transform.localPosition.y <= -4.8)
+        
+        if(ball.transform.position.y <= -4.8)
             BallManager.Instance.ResetBall();
     }
     public override void CollectObservations(VectorSensor sensor)
@@ -48,5 +48,18 @@ public class PaddleAgent : Agent
     {
         var continuousActionsOut = actionsOut.ContinuousActions;
         continuousActionsOut[0] = Input.GetAxis("Horizontal");
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Rigidbody2D ballRb = collision.gameObject.GetComponent<Rigidbody2D>();
+        Vector2 contactPoint = collision.GetContact(0).point;
+        Vector2 paddleCenter = transform.position;
+
+        ballRb.velocity = Vector2.zero;
+
+        float diff = contactPoint.x - paddleCenter.x;
+        float horizontalForce = diff * 250;  // Horizontal force applied to the ball, magnitude depends on contact point
+        Vector2 force = new Vector2(horizontalForce, BallManager.Instance.ballStartForce);
+        ballRb.AddForce(force);
     }
 }

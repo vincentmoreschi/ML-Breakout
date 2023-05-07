@@ -21,7 +21,7 @@ public class Ball : MonoBehaviour
     void Update()
     {
         if(transform.position.y < minY){
-            transform.position= ballSpawn.transform.position;
+            // transform.position= ballSpawn.transform.position;
             rb.velocity = Vector3.zero;
         }
         if(rb.velocity.magnitude > maxVelocity){
