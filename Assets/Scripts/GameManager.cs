@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public int score { get; set; }
     public int lives { get; set; }
     public bool gameStarted { get; set; }
-    public GameObject gameOverScreen;
+    public GameOverScenario gameOverScreen;
 
     public int initialLives = 3;
     public int brickPoints;  // Number of points given for each brick hitpoint
@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
             this.lives--;
             UIManager.Instance.UpdateLivesText();
             if (this.lives < 1) {
-                gameOverScreen.SetActive(true);
+                gameOverScreen.showGameOver();
             } else {
                 // reload level
                 BallManager.Instance.ResetBall();
@@ -62,16 +62,22 @@ public class GameManager : MonoBehaviour
                 gameStarted = false;
 
                 //reload level if retry option chosen
-                // LevelManager.Instance.GenerateLevel(LevelManager.Instance.currentLevel);
+                LevelManager.Instance.GenerateLevel(LevelManager.Instance.currentLevel);
             }
         }
     }
 
     public void RestartGame() {
+        this.lives = 3;
+        this.score = 0;
+        // LevelManager.Instance.GenerateLevel(LevelManager.Instance.currentLevel);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void LoadMainMenu() {
+        this.lives = 3;
+        this.score = 0;
+        LevelManager.Instance.currentLevel = 1;
         SceneManager.LoadScene("MainMenu",LoadSceneMode.Single);
     }
 }
