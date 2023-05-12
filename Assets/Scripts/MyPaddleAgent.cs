@@ -24,18 +24,18 @@ public class MyPaddleAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-        // GameManager.Instance.RestartGame();
+        //GameManager.Instance.RestartGame();
 
-        //GameManager.Instance.lives = 3;
-        //GameManager.Instance.score = 0;
+        GameManager.Instance.lives = 3;
+        GameManager.Instance.score = 0;
 
-        //LevelManager.Instance.ResetLevels();
+        LevelManager.Instance.ResetLevels();
 
-        //UIManager.Instance.UpdateLevelText();
-        //UIManager.Instance.UpdateLivesText();
-        //UIManager.Instance.UpdateScoreText();
+        UIManager.Instance.UpdateLevelText();
+        UIManager.Instance.UpdateLivesText();
+        UIManager.Instance.UpdateScoreText();
 
-        //transform.position = new Vector3(0, -4.2f, 0);
+        transform.position = new Vector3(0, -4.2f, 0);
     }
 
     public override void CollectObservations(VectorSensor sensor)
