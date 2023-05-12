@@ -776,6 +776,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ad101a83789de514b9c8a4d740ac5d7f, type: 3}
   - {fileID: 21300000, guid: 29cfa4481b7785248a1c5b307aac3c64, type: 3}
   - {fileID: 21300000, guid: 612c38f76c0e3d1478333aa3cd5ef5ac, type: 3}
+  brickColors:
+  - {r: 0, g: 1, b: 1, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 1, g: 1, b: 0, a: 1}
+  - {r: 1, g: 0.6, b: 1, a: 1}
+  - {r: 0.6, g: 0.3, b: 1, a: 1}
   brickPrefab: {fileID: 4986256604863081114, guid: 6850f626fdf311740b3ca657832fac6b, type: 3}
 --- !u!1 &470124002
 GameObject:
