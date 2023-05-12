@@ -78,12 +78,12 @@ public class MyPaddleAgent : Agent
 
     private void OnBrickDestructionReward(Brick brick)
     {
-        SetReward(1f);
+        SetReward(0.1f);
     }
 
     private void OnBallDeathReward(Ball obj)
     {
-        SetReward(-10f);
+        SetReward(-1f);
         EndEpisode();
     }
 }
