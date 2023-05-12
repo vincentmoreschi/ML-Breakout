@@ -42,10 +42,14 @@ public class BallManager : MonoBehaviour
             if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
             {
                 GameManager.Instance.gameStarted = true;
-
-                _ballRb.AddForce(new Vector2(0, ballStartForce));
+                ShootBall();
             }
         }
+    }
+
+    public void ShootBall()
+    {
+        _ballRb.AddForce(new Vector2(0, ballStartForce));
     }
 
     public void CreateBall(Ball ballPrefab)
@@ -64,7 +68,7 @@ public class BallManager : MonoBehaviour
     internal void ResetBall()
     {
         foreach (var ball in this.Balls) {
-            Destroy(ball);
+            Destroy(ball.gameObject);
         }
         CreateBall(ballRedPrefab);
     }

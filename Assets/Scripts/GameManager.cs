@@ -46,6 +46,13 @@ public class GameManager : MonoBehaviour
 
     public void OnBallDeath(Ball ball)
     {
+
+        // TESTING - DELETE LATER
+        Debug.Log("DELETE ME");
+        LevelManager.Instance.ClearLevel();
+        // END TESTING
+
+
         Debug.Log(BallManager.Instance.Balls.Count.ToString());
         if (BallManager.Instance.Balls.Count <= 0) {
             Debug.Log("Balls count is 0");

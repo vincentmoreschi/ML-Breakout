@@ -69,9 +69,9 @@ public class LevelManager : MonoBehaviour
                 // TODO: level change visual?
                 currentLevel++;
 
-                GenerateNextLevel();
-                BallManager.Instance.ResetBall();
+                GenerateLevel(currentLevel);
                 UIManager.Instance.UpdateLevelText();
+                BallManager.Instance.ResetBall();
 
                 GameManager.Instance.gameStarted = false;
             }
@@ -87,8 +87,34 @@ public class LevelManager : MonoBehaviour
         return currentLevel == _levelsHpData.Count;
     }
 
-    private void GenerateNextLevel()
+    // WHY ISN'T THIS WORKING??? ALSO GAMEMANAGER.ONBALLDEATH HAS STUFF THAT NEEDS TO BE DELETED ONCE YOU FIGURE THIS OUT
+    public void ClearLevel()
     {
+        int i = 0;
+        // Destroy all current bricks
+        while (_bricksContainer.transform.childCount > 0)
+        {
+
+            Debug.Log(_bricksContainer.transform.childCount);
+            Debug.Log(_bricksContainer.transform.GetChild(0).gameObject);
+            Debug.Log(_bricksContainer.transform.GetChild(0).gameObject.transform.position);
+
+            Destroy(_bricksContainer.transform.GetChild(0).gameObject);
+
+            i++;
+            if (i == 100)
+            {
+                break;
+            }
+        }
+    }
+
+    public void ResetLevels()
+    {
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //ClearLevel();
+
+        currentLevel = 1;
         GenerateLevel(currentLevel);
     }
 
