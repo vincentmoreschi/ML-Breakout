@@ -70,6 +70,7 @@ public class LevelManager : MonoBehaviour
                 currentLevel++;
 
                 GenerateNextLevel();
+                BallManager.Instance._ball.Death();
                 BallManager.Instance.ResetBall();
                 UIManager.Instance.UpdateLevelText();
 
