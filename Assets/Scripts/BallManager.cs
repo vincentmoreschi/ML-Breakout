@@ -10,7 +10,7 @@ public class BallManager : MonoBehaviour
     public float ballStartForce;
     public float padding;  // Padding between ball and paddle
 
-    private Ball _ball;
+    public Ball _ball;
     private Rigidbody2D _ballRb;
 
     private void Awake()
@@ -31,7 +31,7 @@ public class BallManager : MonoBehaviour
         CreateBall(ballRedPrefab);
     }
 
-    private void LateUpdate()
+private void LateUpdate()
     {
         if (!GameManager.Instance.gameStarted)
         {
@@ -39,12 +39,10 @@ public class BallManager : MonoBehaviour
             Vector3 ballPosition = new Vector3(paddlePosition.x, paddlePosition.y + padding, paddlePosition.z);
             _ball.transform.position = ballPosition;
 
-            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
-            {
-                GameManager.Instance.gameStarted = true;
 
-                _ballRb.AddForce(new Vector2(0, ballStartForce));
-            }
+            GameManager.Instance.gameStarted = true;
+
+            _ballRb.AddForce(new Vector2(0, ballStartForce));
         }
     }
 
@@ -55,11 +53,17 @@ public class BallManager : MonoBehaviour
 
         _ball = Instantiate(ballPrefab, ballPosition, Quaternion.identity) as Ball;
         _ballRb = _ball.GetComponent<Rigidbody2D>();
+
+        this.Balls = new List<Ball> {
+            _ball
+        };
     }
 
     internal void ResetBall()
     {
-        Destroy(_ball.gameObject);
+        foreach (var ball in this.Balls) {
+            Destroy(ball);
+        }
         CreateBall(ballRedPrefab);
     }
 

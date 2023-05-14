@@ -17,7 +17,7 @@ public class PaddleAgent : Agent
     }
 
     public override void OnEpisodeBegin(){
-        
+        GameManager.Instance.gameStarted = true;
         
         if(ball.transform.position.y <= -4.8)
             BallManager.Instance.ResetBall();
@@ -32,9 +32,12 @@ public class PaddleAgent : Agent
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
         Vector3 controlSignal = Vector3.zero;
+
         controlSignal.x = actionBuffers.ContinuousActions[0];
-        Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
+
+        Vector3 direction = new Vector3(controlSignal.x, 0, 0);
         this.transform.Translate(10  * controlSignal.x * direction);
+
         if(LevelManager.Instance.RemainingBricks < bricks){
             SetReward(1.0f);
         }

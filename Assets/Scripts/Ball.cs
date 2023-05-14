@@ -29,11 +29,11 @@ public class Ball : MonoBehaviour
         }
     }
 
-    // Method for ball death.
-    // public static event Action<Ball> OnBallDeath;
+    //Method for ball death.
+    public static event Action<Ball> OnBallDeath;
 
-    // public void Death() {
-    //     OnBallDeath?.Invoke(this);
-    //     Destroy(ballSpawn, 1);
-    // }
+    public void Death() {
+        OnBallDeath?.Invoke(this);
+        Destroy(gameObject);
+    }
 }
