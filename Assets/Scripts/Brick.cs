@@ -24,10 +24,11 @@ public class Brick : MonoBehaviour
     /// <param name="containerTransform">The transform component of the parent container.</param>
     /// <param name="sprite">The brick's sprite image.</param>
     /// <param name="hitpoints">The brick's hitpoints.</param>
-    internal void Init(Transform containerTransform, Sprite sprite, int hitpoints)
+    internal void Init(Transform containerTransform, Sprite sprite, Color color, int hitpoints)
     {
         transform.SetParent(containerTransform);
         _sr.sprite = sprite;
+        _sr.color = color;
         hp = initialHp = hitpoints;
     }
 
