@@ -31,7 +31,7 @@ public class BallManager : MonoBehaviour
         CreateBall(ballRedPrefab);
     }
 
-    private void LateUpdate()
+private void LateUpdate()
     {
         if (!GameManager.Instance.gameStarted)
         {
@@ -39,12 +39,10 @@ public class BallManager : MonoBehaviour
             Vector3 ballPosition = new Vector3(paddlePosition.x, paddlePosition.y + padding, paddlePosition.z);
             _ball.transform.position = ballPosition;
 
-            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
-            {
-                GameManager.Instance.gameStarted = true;
 
-                _ballRb.AddForce(new Vector2(0, ballStartForce));
-            }
+            GameManager.Instance.gameStarted = true;
+
+            _ballRb.AddForce(new Vector2(0, ballStartForce));
         }
     }
 
