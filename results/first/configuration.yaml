@@ -1,6 +1,6 @@
 default_settings: null
 behaviors:
-  RollerBall:
+  paddle:
     trainer_type: ppo
     hyperparameters:
       batch_size: 10
@@ -67,7 +67,7 @@ checkpoint_settings:
   load_model: false
   resume: false
   force: true
-  train_model: false
+  train_model: true
   inference: false
   results_dir: results
 torch_settings:
