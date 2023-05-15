@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
 
     public static GameManager Instance => GameManager._instance;
-
+    
     private void Awake() {
         if (GameManager._instance != null) {
             Destroy(gameObject);
@@ -21,21 +21,24 @@ public class GameManager : MonoBehaviour
     public int score { get; set; }
     public int lives { get; set; }
     public bool gameStarted { get; set; }
-    public GameOverScenario gameOverScreen = GameOverScenario.Instance;
+    public GameObject gameOverScreen;
 
     public int initialLives = 3;
     public int brickPoints;  // Number of points given for each brick hitpoint
+    public int currentLevel;
 
     void Start()
     {
         Brick.OnBrickDestruction += UpdateScore;
 
         this.lives = this.initialLives;
+        this.currentLevel = LevelManager.Instance.currentLevel;
         gameStarted = false;
         Ball.OnBallDeath += OnBallDeath;
 
         UIManager.Instance.UpdateLevelText();
         UIManager.Instance.UpdateLivesText();
+        Debug.Log(gameOverScreen.GetInstanceID());
     }
 
     private void UpdateScore(Brick brick)
@@ -50,10 +53,21 @@ public class GameManager : MonoBehaviour
         // if (BallManager.Instance.Balls.Count <= 0) {
         //     Debug.Log("Balls count is 0");
         //     //gameStarted = false;
-            this.lives--;
-            UIManager.Instance.UpdateLivesText();
+            if(currentLevel == LevelManager.Instance.currentLevel) {
+                this.lives--;
+                UIManager.Instance.UpdateLivesText();
+            } else {
+                currentLevel = LevelManager.Instance.currentLevel;
+            }
+
+            // if (gameOverScreen == null){
+            //     Debug.Log("Creating gameoverscreen instance");
+            //     gameOverScreen = GameOverScenario.Instance;
+            //     Debug.Log(gameOverScreen.GetInstanceID());
+            // }
+
             if (this.lives <= 0) {
-                gameOverScreen.showGameOver();
+                gameOverScreen.SetActive(true);
                 gameStarted = false;
             } else {
                 // reload level
@@ -71,11 +85,8 @@ public class GameManager : MonoBehaviour
     public void RestartGame() {
         this.lives = initialLives;
         this.score = 0;
-        // LevelManager.Instance.GenerateLevel(LevelManager.Instance.currentLevel);
+        gameOverScreen.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        gameOverScreen.hideGameOver();
-        //gameOverScreen = GameOverScenario.Instance;
-        // this.Start();
     }
 
     public void LoadMainMenu() {
