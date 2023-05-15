@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public int score { get; set; }
     public int lives { get; set; }
     public bool gameStarted { get; set; }
-    public GameOverScenario gameOverScreen;
+    public GameOverScenario gameOverScreen = GameOverScenario.Instance;
 
     public int initialLives = 3;
     public int brickPoints;  // Number of points given for each brick hitpoint
@@ -46,14 +46,15 @@ public class GameManager : MonoBehaviour
 
     public void OnBallDeath(Ball ball)
     {
-        Debug.Log(BallManager.Instance.Balls.Count.ToString());
-        if (BallManager.Instance.Balls.Count <= 0) {
-            Debug.Log("Balls count is 0");
-            //gameStarted = false;
+        // Debug.Log(BallManager.Instance.Balls.Count.ToString());
+        // if (BallManager.Instance.Balls.Count <= 0) {
+        //     Debug.Log("Balls count is 0");
+        //     //gameStarted = false;
             this.lives--;
             UIManager.Instance.UpdateLivesText();
-            if (this.lives < 1) {
+            if (this.lives <= 0) {
                 gameOverScreen.showGameOver();
+                gameStarted = false;
             } else {
                 // reload level
                 BallManager.Instance.ResetBall();
@@ -62,20 +63,23 @@ public class GameManager : MonoBehaviour
                 gameStarted = false;
 
                 //reload level if retry option chosen
-                LevelManager.Instance.GenerateLevel(LevelManager.Instance.currentLevel);
+                // LevelManager.Instance.GenerateLevel(LevelManager.Instance.currentLevel);
             }
-        }
+        // }
     }
 
     public void RestartGame() {
-        this.lives = 3;
+        this.lives = initialLives;
         this.score = 0;
         // LevelManager.Instance.GenerateLevel(LevelManager.Instance.currentLevel);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        gameOverScreen.hideGameOver();
+        //gameOverScreen = GameOverScenario.Instance;
+        // this.Start();
     }
 
     public void LoadMainMenu() {
-        this.lives = 3;
+        this.lives = initialLives;
         this.score = 0;
         LevelManager.Instance.currentLevel = 1;
         SceneManager.LoadScene("MainMenu",LoadSceneMode.Single);

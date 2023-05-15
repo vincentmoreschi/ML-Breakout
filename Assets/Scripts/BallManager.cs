@@ -24,7 +24,7 @@ public class BallManager : MonoBehaviour
             BallManager._instance = this;
         }
     }
-    public List<Ball> Balls { get; set; }
+    // public List<Ball> Balls { get; set; }
 
     void Start()
     {
@@ -56,16 +56,17 @@ public class BallManager : MonoBehaviour
         _ball = Instantiate(ballPrefab, ballPosition, Quaternion.identity) as Ball;
         _ballRb = _ball.GetComponent<Rigidbody2D>();
 
-        this.Balls = new List<Ball> {
-            _ball
-        };
+        // this.Balls = new List<Ball> {
+        //     _ball
+        // };
     }
 
     internal void ResetBall()
     {
-        foreach (var ball in this.Balls) {
-            Destroy(ball);
-        }
+        // foreach (var ball in this.Balls) {
+        //     Destroy(ball.gameObject);
+        // }
+        Destroy(_ball.gameObject);
         CreateBall(ballRedPrefab);
     }
 

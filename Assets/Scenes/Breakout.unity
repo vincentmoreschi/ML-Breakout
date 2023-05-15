@@ -691,7 +691,7 @@ GameObject:
   - component: {fileID: 314958143}
   - component: {fileID: 314958142}
   - component: {fileID: 314958144}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: GameOver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -782,7 +782,7 @@ GameObject:
   - component: {fileID: 343373165}
   - component: {fileID: 343373167}
   - component: {fileID: 343373166}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1300,7 +1300,7 @@ GameObject:
   - component: {fileID: 611178649}
   - component: {fileID: 611178648}
   - component: {fileID: 611178647}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Retry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1433,7 +1433,7 @@ GameObject:
   - component: {fileID: 628647143}
   - component: {fileID: 628647145}
   - component: {fileID: 628647144}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: GameOverText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2381,7 +2381,7 @@ GameObject:
   - component: {fileID: 1848795290}
   - component: {fileID: 1848795289}
   - component: {fileID: 1848795288}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: ReturnToMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2514,7 +2514,7 @@ GameObject:
   - component: {fileID: 1940993207}
   - component: {fileID: 1940993209}
   - component: {fileID: 1940993208}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

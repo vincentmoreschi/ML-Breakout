@@ -10,7 +10,7 @@ public class DeathWall : MonoBehaviour
         if (collision.tag == "Ball") {
             Debug.Log("Collision with Deathwall");
             Ball ball = collision.GetComponent<Ball>();
-            BallManager.Instance.Balls.Remove(ball);
+            // BallManager.Instance.Balls.Remove(ball);
             ball.Death();
         }
     }
