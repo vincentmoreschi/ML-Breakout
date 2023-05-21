@@ -49,6 +49,8 @@ public class PaddleAgent : Agent
         }
         if (ball.transform.position.y < -4.5)
         {
+            SetReward(-1.0f);
+            Debug.Log("end");
             EndEpisode();
         }
         bricks = LevelManager.Instance.RemainingBricks;
