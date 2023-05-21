@@ -41,7 +41,7 @@ public class LevelManager : MonoBehaviour
     private Vector3 _initialBrickPosition = new Vector3(-1.99f, 3.377f, 0f);  // Top-left brick position
     private float _shift = 0.365f;  // Brick width + padding
 
-    private GameObject _bricksContainer;  // Container to hold instantiated bricks
+    public GameObject _bricksContainer;  // Container to hold instantiated bricks
 
     // Start is called before the first frame update
     void Start()
@@ -62,7 +62,7 @@ public class LevelManager : MonoBehaviour
         {
             if (CheckFinalLevel())
             {
-                // TODO: show victory scene
+                GameManager.Instance.victoryScreen.SetActive(true);
             }
             else
             {

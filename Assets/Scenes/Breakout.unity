@@ -545,6 +545,10 @@ GameObject:
   - component: {fileID: 108154571}
   - component: {fileID: 108154567}
   - component: {fileID: 108154568}
+  - component: {fileID: 108154574}
+  - component: {fileID: 108154573}
+  - component: {fileID: 108154572}
+  - component: {fileID: 108154575}
   m_Layer: 0
   m_Name: Paddle
   m_TagString: Untagged
@@ -679,6 +683,96 @@ PolygonCollider2D:
       - {x: 0.5494646, y: 0.0032858849}
       - {x: 0.51383173, y: 0.0940299}
       - {x: 0.4082867, y: 0.12847376}
+--- !u!114 &108154572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108154563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  TakeActionsBetweenDecisions: 1
+--- !u!114 &108154573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108154563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86e8af06bdc7c9841ad235e52f0177aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  ballTransform: {fileID: 8328126268780514556, guid: b8d9c7b641af9914196d6a5af94d1dd6, type: 3}
+--- !u!114 &108154574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108154563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 1
+    NumStackedVectorObservations: 1
+    m_ActionSpec:
+      m_NumContinuousActions: 1
+      BranchSizes: 
+    VectorActionSize: 01000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 1
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 2
+  m_BehaviorName: MovePaddle
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_DeterministicInference: 0
+  m_ObservableAttributeHandling: 0
+--- !u!114 &108154575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108154563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a501962d056745d1a30e99146ee39fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: GridSensor
+  m_CellScale: {x: 1, y: 0.01, z: 1}
+  m_GridSize: {x: 16, y: 1, z: 16}
+  m_RotateWithAgent: 1
+  m_AgentGameObject: {fileID: 0}
+  m_DetectableTags: []
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 0
+  m_MaxColliderBufferSize: 500
+  m_InitialColliderBufferSize: 4
+  m_DebugColors: []
+  m_GizmoYOffset: 0
+  m_ShowGizmos: 0
+  m_CompressionType: 1
+  m_ObservationStacks: 1
 --- !u!1 &314958140
 GameObject:
   m_ObjectHideFlags: 0
@@ -1054,6 +1148,7 @@ MonoBehaviour:
   - {r: 1, g: 0.6, b: 1, a: 1}
   - {r: 0.6, g: 0.3, b: 1, a: 1}
   brickPrefab: {fileID: 4986256604863081114, guid: 6850f626fdf311740b3ca657832fac6b, type: 3}
+  _bricksContainer: {fileID: 0}
 --- !u!1 &470124002
 GameObject:
   m_ObjectHideFlags: 0
@@ -1837,6 +1932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverScreen: {fileID: 314958140}
+  victoryScreen: {fileID: 1336629497}
   initialLives: 3
   brickPoints: 50
   currentLevel: 0
@@ -2297,6 +2393,7 @@ MonoBehaviour:
   ballStartForce: 400
   padding: 0.26
   _ball: {fileID: 0}
+  _ballRb: {fileID: 0}
 --- !u!1 &1813720635
 GameObject:
   m_ObjectHideFlags: 0

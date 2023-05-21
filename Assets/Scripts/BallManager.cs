@@ -11,7 +11,7 @@ public class BallManager : MonoBehaviour
     public float padding;  // Padding between ball and paddle
 
     public Ball _ball;
-    private Rigidbody2D _ballRb;
+    public Rigidbody2D _ballRb;
 
     private void Awake()
     {

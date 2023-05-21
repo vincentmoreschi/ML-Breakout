@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public bool gameStarted { get; set; }
     public GameObject gameOverScreen;
 
+    public GameObject victoryScreen;
+
     public int initialLives = 3;
     public int brickPoints;  // Number of points given for each brick hitpoint
     public int currentLevel;
