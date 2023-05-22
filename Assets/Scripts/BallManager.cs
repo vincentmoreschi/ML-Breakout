@@ -38,11 +38,12 @@ private void LateUpdate()
             Vector3 paddlePosition = Paddle.Instance.transform.position;
             Vector3 ballPosition = new Vector3(paddlePosition.x, paddlePosition.y + padding, paddlePosition.z);
             _ball.transform.position = ballPosition;
-
-
-            GameManager.Instance.gameStarted = true;
-
-            _ballRb.AddForce(new Vector2(0, ballStartForce));
+            
+            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+            {
+                GameManager.Instance.gameStarted = true;
+                _ballRb.AddForce(new Vector2(0, ballStartForce));
+            }
         }
     }
 

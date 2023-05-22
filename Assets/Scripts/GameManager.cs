@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 
         UIManager.Instance.UpdateLevelText();
         UIManager.Instance.UpdateLivesText();
-        Debug.Log(gameOverScreen.GetInstanceID());
+        // Debug.Log(gameOverScreen.GetInstanceID());
     }
 
     private void UpdateScore(Brick brick)
