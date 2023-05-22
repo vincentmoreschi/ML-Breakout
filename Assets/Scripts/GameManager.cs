@@ -25,20 +25,18 @@ public class GameManager : MonoBehaviour
 
     public int initialLives = 3;
     public int brickPoints;  // Number of points given for each brick hitpoint
-    public int currentLevel;
 
     void Start()
     {
         Brick.OnBrickDestruction += UpdateScore;
 
         this.lives = this.initialLives;
-        this.currentLevel = LevelManager.Instance.currentLevel;
         gameStarted = false;
         Ball.OnBallDeath += OnBallDeath;
 
         UIManager.Instance.UpdateLevelText();
         UIManager.Instance.UpdateLivesText();
-        Debug.Log(gameOverScreen.GetInstanceID());
+        // Debug.Log(gameOverScreen.GetInstanceID());
     }
 
     private void UpdateScore(Brick brick)
@@ -49,37 +47,22 @@ public class GameManager : MonoBehaviour
 
     public void OnBallDeath(Ball ball)
     {
-        // Debug.Log(BallManager.Instance.Balls.Count.ToString());
-        // if (BallManager.Instance.Balls.Count <= 0) {
-        //     Debug.Log("Balls count is 0");
-        //     //gameStarted = false;
-            if(currentLevel == LevelManager.Instance.currentLevel) {
-                this.lives--;
-                UIManager.Instance.UpdateLivesText();
-            } else {
-                currentLevel = LevelManager.Instance.currentLevel;
-            }
+        lives--;
+        if (lives <= 0)
+        {
+            gameOverScreen.SetActive(true);
+            gameStarted = false;
+        }
+        else
+        {
+            UIManager.Instance.UpdateLivesText();
 
-            // if (gameOverScreen == null){
-            //     Debug.Log("Creating gameoverscreen instance");
-            //     gameOverScreen = GameOverScenario.Instance;
-            //     Debug.Log(gameOverScreen.GetInstanceID());
-            // }
+            // Reload level
+            BallManager.Instance.ResetBall();
 
-            if (this.lives <= 0) {
-                gameOverScreen.SetActive(true);
-                gameStarted = false;
-            } else {
-                // reload level
-                BallManager.Instance.ResetBall();
-
-                //pause the game
-                gameStarted = false;
-
-                //reload level if retry option chosen
-                // LevelManager.Instance.GenerateLevel(LevelManager.Instance.currentLevel);
-            }
-        // }
+            // Pause the game
+            gameStarted = false;
+        }
     }
 
     public void RestartGame() {
