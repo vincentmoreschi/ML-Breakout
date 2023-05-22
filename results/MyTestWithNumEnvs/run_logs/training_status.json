@@ -1,0 +1,65 @@
+{
+    "My Behavior": {
+        "checkpoints": [
+            {
+                "steps": 458640,
+                "file_path": "results\\MyTestWithNumEnvs\\My Behavior\\My Behavior-458640.onnx",
+                "reward": 0.4200000293552876,
+                "creation_time": 1684436497.8296669,
+                "auxillary_file_paths": [
+                    "results\\MyTestWithNumEnvs\\My Behavior\\My Behavior-458640.pt"
+                ]
+            },
+            {
+                "steps": 499982,
+                "file_path": "results\\MyTestWithNumEnvs\\My Behavior\\My Behavior-499982.onnx",
+                "reward": null,
+                "creation_time": 1684440058.8848805,
+                "auxillary_file_paths": [
+                    "results\\MyTestWithNumEnvs\\My Behavior\\My Behavior-499982.pt"
+                ]
+            },
+            {
+                "steps": 500046,
+                "file_path": "results\\MyTestWithNumEnvs\\My Behavior\\My Behavior-500046.onnx",
+                "reward": null,
+                "creation_time": 1684440059.0448802,
+                "auxillary_file_paths": [
+                    "results\\MyTestWithNumEnvs\\My Behavior\\My Behavior-500046.pt"
+                ]
+            },
+            {
+                "steps": 999964,
+                "file_path": "results\\MyTestWithNumEnvs\\My Behavior\\My Behavior-999964.onnx",
+                "reward": 1.6000000424683094,
+                "creation_time": 1684444830.899069,
+                "auxillary_file_paths": [
+                    "results\\MyTestWithNumEnvs\\My Behavior\\My Behavior-999964.pt"
+                ]
+            },
+            {
+                "steps": 1053832,
+                "file_path": "results\\MyTestWithNumEnvs\\My Behavior\\My Behavior-1053832.onnx",
+                "reward": 1.422222273217307,
+                "creation_time": 1684445301.3080885,
+                "auxillary_file_paths": [
+                    "results\\MyTestWithNumEnvs\\My Behavior\\My Behavior-1053832.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1053832,
+            "file_path": "results\\MyTestWithNumEnvs\\My Behavior.onnx",
+            "reward": 1.422222273217307,
+            "creation_time": 1684445301.3080885,
+            "auxillary_file_paths": [
+                "results\\MyTestWithNumEnvs\\My Behavior\\My Behavior-1053832.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.29.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}
