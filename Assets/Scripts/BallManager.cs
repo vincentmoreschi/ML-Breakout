@@ -24,14 +24,14 @@ public class BallManager : MonoBehaviour
             BallManager._instance = this;
         }
     }
-    // public List<Ball> Balls { get; set; }
+    public List<Ball> Balls { get; set; }
 
     void Start()
     {
         CreateBall(ballRedPrefab);
     }
 
-private void LateUpdate()
+    private void LateUpdate()
     {
         if (!GameManager.Instance.gameStarted)
         {
@@ -39,11 +39,17 @@ private void LateUpdate()
             Vector3 ballPosition = new Vector3(paddlePosition.x, paddlePosition.y + padding, paddlePosition.z);
             _ball.transform.position = ballPosition;
 
-
-            GameManager.Instance.gameStarted = true;
-
-            _ballRb.AddForce(new Vector2(0, ballStartForce));
+            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+            {
+                GameManager.Instance.gameStarted = true;
+                ShootBall();
+            }
         }
+    }
+
+    public void ShootBall()
+    {
+        _ballRb.AddForce(new Vector2(0, ballStartForce));
     }
 
     public void CreateBall(Ball ballPrefab)
@@ -54,17 +60,16 @@ private void LateUpdate()
         _ball = Instantiate(ballPrefab, ballPosition, Quaternion.identity) as Ball;
         _ballRb = _ball.GetComponent<Rigidbody2D>();
 
-        // this.Balls = new List<Ball> {
-        //     _ball
-        // };
+        this.Balls = new List<Ball> {
+            _ball
+        };
     }
 
     internal void ResetBall()
     {
-        // foreach (var ball in this.Balls) {
-        //     Destroy(ball.gameObject);
-        // }
-        Destroy(_ball.gameObject);
+        foreach (var ball in this.Balls) {
+            Destroy(ball.gameObject);
+        }
         CreateBall(ballRedPrefab);
     }
 

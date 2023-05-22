@@ -69,10 +69,9 @@ public class LevelManager : MonoBehaviour
                 // TODO: level change visual?
                 currentLevel++;
 
-                GenerateNextLevel();
-                BallManager.Instance._ball.Death();
-                BallManager.Instance.ResetBall();
+                GenerateLevel(currentLevel);
                 UIManager.Instance.UpdateLevelText();
+                BallManager.Instance.ResetBall();
 
                 GameManager.Instance.gameStarted = false;
             }
@@ -88,8 +87,20 @@ public class LevelManager : MonoBehaviour
         return currentLevel == _levelsHpData.Count;
     }
 
-    private void GenerateNextLevel()
+    public void ClearLevel()
     {
+        // Destroy all current bricks
+        for (int i = 0; i < _bricksContainer.transform.childCount; i++)
+        {
+            Destroy(_bricksContainer.transform.GetChild(i).gameObject);
+        }
+    }
+
+    public void ResetLevels()
+    {
+        ClearLevel();
+
+        currentLevel = 1;
         GenerateLevel(currentLevel);
     }
 
