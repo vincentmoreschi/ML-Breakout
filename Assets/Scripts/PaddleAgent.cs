@@ -12,53 +12,70 @@ public class PaddleAgent : Agent
     private GameObject ball;
     private GameObject brickContainer;
 
-    // Brick[] bricksList;
+    private Ball target;
+
+    private Brick[] bricksList;
 
     void Start()
     {
-        // BallManager.Instance.CreateBall(ball);
+        // BallManager.Instance.CreateBall(target);
         bricks = LevelManager.Instance.RemainingBricks;
-        // brickContainer = LevelManager.Instance._bricksContainer;
+        brickContainer = LevelManager.Instance._bricksContainer;
     }
     // [SerializeField] private Transform ballTransform;
     public override void OnEpisodeBegin(){
         GameManager.Instance.gameStarted = true;
         BallManager.Instance._ballRb.AddForce(new Vector2(0, BallManager.Instance.ballStartForce));
-        // ball = GameObject.Find("Ball Red(Clone)");
-        // brickContainer = GameObject.Find("Bricks Container");
-        // bricksList = brickContainer.GetComponentsInChildren<Brick>();
-        // bricks = LevelManager.Instance.RemainingBricks;
-        // Debug.Log(ball);
-        // Debug.Log(brickContainer);
-        // Debug.Log(bricksList.GetLength(0));
+        ball = GameObject.Find("Ball Red(Clone)");
+        brickContainer = GameObject.Find("Bricks Container");
+        bricksList = brickContainer.GetComponentsInChildren<Brick>();
+        bricks = LevelManager.Instance.RemainingBricks;
+        Debug.Log(ball);
+        Debug.Log(brickContainer);
+        Debug.Log(bricksList.GetLength(0));
         GameManager.Instance.lives = 3;
     }
     
     public override void CollectObservations(VectorSensor sensor)
     {
-        // sensor.AddObservation(ball.transform.position);
-        // sensor.AddObservation(transform.position);
-        // sensor.AddObservation(ball.transform.position-transform.position);
+        if (ball == null) {
+            Debug.Log("Deathwall Penalty");
+            SetReward(-2f);
+            EndEpisode();
+        }
 
-        // foreach (Brick brick in bricksList) {
-        //     if (brick != null)
-        //     sensor.AddObservation(brick.transform.position);
-        // }
+        sensor.AddObservation(ball.transform.position);
+        sensor.AddObservation(transform.position);
+        sensor.AddObservation(ball.transform.position-transform.position);
 
+        foreach (Brick brick in bricksList) {
+            if (brick != null)
+            sensor.AddObservation(brick.transform.position);
+        }
+
+        if (LevelManager.Instance.RemainingBricks < bricks) {
+            for (int i=0;i<bricks-(LevelManager.Instance.RemainingBricks);i++) {
+                Debug.Log("Brick break reward");
+                SetReward(1.0f);
+            }
+            bricks = LevelManager.Instance.RemainingBricks;
+        }
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
         Debug.Log(actions.ContinuousActions[0]);
 
-        // float moveX = actions.ContinuousActions[0];
+        float moveX = actions.ContinuousActions[0];
 
-        // int moveSpeed = 7;
-        // transform.position += new Vector3(moveX,0,0) * Time.deltaTime * moveSpeed;
+        int moveSpeed = 7;
+        transform.position += new Vector3(moveX,0,0) * Time.deltaTime * moveSpeed;
 
     }
 private void OnCollisionEnter2D(Collision2D other) 
      {
-        // if (other.otherCollider.TryGetComponent<Ball> (out Ball ball)) {
+        Debug.Log("paddle hits ball reward");
+        SetReward(+1f);
+        // if (other.otherCollider.tag) {
         //     Debug.Log("paddle hits ball reward");
         //     SetReward(+1f);
         // }
@@ -73,16 +90,11 @@ private void OnCollisionEnter2D(Collision2D other)
         //     SetReward(-2f);
         //     EndEpisode();
         // }
-
-        // if (GameManager.Instance.lives < 2) {
-        //     EndEpisode();
-        // }
-        
      }
 
-    // public override void Heuristic(in ActionBuffers actionsOut)
-    // {
-    //     ActionSegment<float> continuousActionsOut = actionsOut.ContinuousActions;
-    //     continuousActionsOut[0] = Input.GetAxisRaw("Horizontal");
-    // }
+    public override void Heuristic(in ActionBuffers actionsOut)
+    {
+        ActionSegment<float> continuousActionsOut = actionsOut.ContinuousActions;
+        continuousActionsOut[0] = Input.GetAxisRaw("Horizontal");
+    }
 }
