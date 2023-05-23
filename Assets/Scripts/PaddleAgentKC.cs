@@ -24,18 +24,13 @@ public class PaddleAgentKC : Agent
 
     public override void OnEpisodeBegin()
     {
-        //GameManager.Instance.RestartGame();
+        //LevelManager.Instance.ResetLevels();
+        //ResetScore();
+        //ResetLives();
 
-        GameManager.Instance.lives = 3;
-        GameManager.Instance.score = 0;
+        //Paddle.Instance.ResetPosition();
 
-        LevelManager.Instance.ResetLevels();
-
-        UIManager.Instance.UpdateLevelText();
-        UIManager.Instance.UpdateLivesText();
-        UIManager.Instance.UpdateScoreText();
-
-        transform.position = new Vector3(0, -4.2f, 0);
+        GameManager.Instance.RestartGame();
     }
 
     public override void CollectObservations(VectorSensor sensor)

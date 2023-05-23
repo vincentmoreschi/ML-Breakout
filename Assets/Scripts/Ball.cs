@@ -36,7 +36,6 @@ public class Ball : MonoBehaviour
 
     public void Death() {
         OnBallDeath?.Invoke(this);
-        // Destroy(gameObject);
-        BallManager.Instance.ResetBall();
+        //Destroy(gameObject);
     }
 }

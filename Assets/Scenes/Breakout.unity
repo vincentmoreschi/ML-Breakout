@@ -260,7 +260,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &48176467
 GameObject:
@@ -844,7 +844,7 @@ RectTransform:
   - {fileID: 1623582119}
   - {fileID: 1336629498}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -907,6 +907,8 @@ MonoBehaviour:
   - {r: 1, g: 0.6, b: 1, a: 1}
   - {r: 0.6, g: 0.3, b: 1, a: 1}
   brickPrefab: {fileID: 4986256604863081114, guid: 6850f626fdf311740b3ca657832fac6b, type: 3}
+  levelsHpFile: LevelsHp
+  levelsColorsFile: LevelsColors
 --- !u!1 &470124002
 GameObject:
   m_ObjectHideFlags: 0
@@ -1564,7 +1566,7 @@ Transform:
   - {fileID: 417598564}
   - {fileID: 1813720636}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1336629497
 GameObject:
@@ -1690,6 +1692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverScreen: {fileID: 314958140}
+  victoryScreen: {fileID: 1336629497}
   initialLives: 3
   brickPoints: 50
 --- !u!1 &1623582118
@@ -2149,67 +2152,6 @@ MonoBehaviour:
   ballStartForce: 400
   padding: 0.26
   _ball: {fileID: 0}
---- !u!1001 &1793130979
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5828517548006274016, guid: 2ce67ac1fcd431346899dcfc969f9c5d, type: 3}
-      propertyPath: m_Name
-      value: PaddleAgent
-      objectReference: {fileID: 0}
-    - target: {fileID: 5828517548006274016, guid: 2ce67ac1fcd431346899dcfc969f9c5d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5828517548006274022, guid: 2ce67ac1fcd431346899dcfc969f9c5d, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5828517548006274022, guid: 2ce67ac1fcd431346899dcfc969f9c5d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5828517548006274022, guid: 2ce67ac1fcd431346899dcfc969f9c5d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -4.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5828517548006274022, guid: 2ce67ac1fcd431346899dcfc969f9c5d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5828517548006274022, guid: 2ce67ac1fcd431346899dcfc969f9c5d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5828517548006274022, guid: 2ce67ac1fcd431346899dcfc969f9c5d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5828517548006274022, guid: 2ce67ac1fcd431346899dcfc969f9c5d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5828517548006274022, guid: 2ce67ac1fcd431346899dcfc969f9c5d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5828517548006274022, guid: 2ce67ac1fcd431346899dcfc969f9c5d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5828517548006274022, guid: 2ce67ac1fcd431346899dcfc969f9c5d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5828517548006274022, guid: 2ce67ac1fcd431346899dcfc969f9c5d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2ce67ac1fcd431346899dcfc969f9c5d, type: 3}
 --- !u!1 &1813720635
 GameObject:
   m_ObjectHideFlags: 0
@@ -2629,7 +2571,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1970464202
 MonoBehaviour:
   m_ObjectHideFlags: 0

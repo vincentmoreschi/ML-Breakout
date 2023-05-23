@@ -30,8 +30,8 @@ public class LevelManager : MonoBehaviour
     public Color[] brickColors;
     public Brick brickPrefab;
 
-    private string levelsHpFile = "LevelsHp";
-    private string levelsColorsFile = "LevelsColors";
+    public string levelsHpFile;
+    public string levelsColorsFile;
 
     private List<int[,]> _levelsHpData;  // Brick hp data for all levels
     private List<int[,]> _levelsColorsData;  // Brick color data for all levels
@@ -46,8 +46,6 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Brick.OnBrickDestruction += LevelCompletion;
-
         _bricksContainer = new GameObject("Bricks Container");
 
         _levelsHpData = LoadLevelsHpData();
@@ -56,13 +54,26 @@ public class LevelManager : MonoBehaviour
         GenerateLevel(currentLevel);
     }
 
+    private void OnEnable()
+    {
+        Brick.OnBrickDestruction += LevelCompletion;
+    }
+
+    private void OnDisable()
+    {
+        // Necessary for re-loading game scenes
+        Brick.OnBrickDestruction -= LevelCompletion;
+    }
+
     private void LevelCompletion(Brick brick)
     {
         if (CheckLevelCompletion())
         {
             if (CheckFinalLevel())
             {
-                // TODO: show victory scene
+                BallManager.Instance.DestroyBalls();
+
+                GameManager.Instance.victoryScreen.SetActive(true);
             }
             else
             {
@@ -87,6 +98,9 @@ public class LevelManager : MonoBehaviour
         return currentLevel == _levelsHpData.Count;
     }
 
+    /// <summary>
+    /// Destroy all bricks in the current level.
+    /// </summary>
     public void ClearLevel()
     {
         // Destroy all current bricks
@@ -96,12 +110,23 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Reset the current level to level 1 and update the UI.
+    /// </summary>
     public void ResetLevels()
     {
         ClearLevel();
 
         currentLevel = 1;
         GenerateLevel(currentLevel);
+
+        UIManager.Instance.UpdateLevelText();
+    }
+
+    public void reloadLevel(int level)
+    {
+        this.currentLevel = level;
+        this.GenerateLevel(this.currentLevel);
     }
 
     /// <summary>
@@ -220,10 +245,4 @@ public class LevelManager : MonoBehaviour
 
         return levelsData;
     }
-
-    public void reloadLevel(int level) {
-        this.currentLevel = level;
-        this.GenerateLevel(this.currentLevel);
-    }
-
 }
