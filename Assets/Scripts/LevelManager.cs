@@ -73,6 +73,7 @@ public class LevelManager : MonoBehaviour
             {
                 BallManager.Instance.DestroyBalls();
 
+                UIManager.Instance.UpdateFinalScoreText();
                 GameManager.Instance.victoryScreen.SetActive(true);
             }
             else

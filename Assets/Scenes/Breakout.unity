@@ -907,8 +907,8 @@ MonoBehaviour:
   - {r: 1, g: 0.6, b: 1, a: 1}
   - {r: 0.6, g: 0.3, b: 1, a: 1}
   brickPrefab: {fileID: 4986256604863081114, guid: 6850f626fdf311740b3ca657832fac6b, type: 3}
-  levelsHpFile: LevelsHp
-  levelsColorsFile: LevelsColors
+  levelsHpFile: TestLevelsHp
+  levelsColorsFile: TestLevelsColors
 --- !u!1 &470124002
 GameObject:
   m_ObjectHideFlags: 0
@@ -1986,7 +1986,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1728914252
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2027,7 +2027,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Final Score: ?????'
+  m_text: 'Final Score
+
+    0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 99c9ed2286bb860478dfdcb07cd62b9e, type: 2}
   m_sharedMaterial: {fileID: -864883839652243190, guid: 99c9ed2286bb860478dfdcb07cd62b9e, type: 2}
@@ -2199,6 +2201,7 @@ MonoBehaviour:
   levelText: {fileID: 470124004}
   scoreText: {fileID: 1707643226}
   livesText: {fileID: 1623582120}
+  finalScoreText: {fileID: 1728914253}
 --- !u!1 &1848795286
 GameObject:
   m_ObjectHideFlags: 0
