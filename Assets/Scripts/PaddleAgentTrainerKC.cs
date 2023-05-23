@@ -6,7 +6,7 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using System;
 
-public class PaddleAgentKC : Agent
+public class PaddleAgentTrainerKC : Agent
 {
     private float _speed;
     private GameObject _background;
