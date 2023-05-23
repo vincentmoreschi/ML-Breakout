@@ -1,8 +1,0 @@
-default_settings: null
-behaviors: {}
-env_settings:
-  env_path: null
-  env_args: null
-  base_port: 5005
-  num_envs: 1
-  
