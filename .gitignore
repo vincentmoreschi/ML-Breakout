@@ -76,4 +76,4 @@ crashlytics-build.properties
 
 python-envs/*
 
-./results
+results

@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,19 +17,25 @@ public class PaddleAgent : Agent
     void Start()
     {
        ball = GameObject.Find("Ball Red(Clone)");
+       
        bricks = LevelManager.Instance.RemainingBricks;
     }
 
     public override void OnEpisodeBegin(){
         // GameManager.Instance.gameStarted = true;
-        ball = GameObject.Find("Ball Red(Clone)");
+        if(ball == null){
+         ball = GameObject.Find("Ball Red(Clone)");
+        }
         bricks = LevelManager.Instance.RemainingBricks;
-        
-        if(ball.transform.position.y < -5)
-            Debug.Log("dead");
-            
-            ball.transform.position = Vector3.zero;
-            
+        if(ball != null){
+            if(ball.transform.position.y < -5){
+                Debug.Log("dead");
+                ball.transform.position = Vector3.zero;
+                ball.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+                GameManager.Instance.RestartGame();
+            }
+        }
+
     }
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -42,11 +49,13 @@ public class PaddleAgent : Agent
     {
         Vector3 controlSignal = new Vector3(actionBuffers.ContinuousActions[0], 0, 0);
        
-        gameObject.transform.Translate(10  * controlSignal);
+        gameObject.transform.Translate(1  * controlSignal);
 
         if(LevelManager.Instance.RemainingBricks < bricks){
             SetReward(1.0f);
+            Debug.Log("reward");
         }
+        
         if (ball.transform.position.y < -4.5)
         {
             SetReward(-1.0f);

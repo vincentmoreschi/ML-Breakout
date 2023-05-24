@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
     public void RestartGame() {
         this.lives = 3;
         this.score = 0;
-        // LevelManager.Instance.GenerateLevel(LevelManager.Instance.currentLevel);
+        //LevelManager.Instance.GenerateLevel(LevelManager.Instance.currentLevel);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
