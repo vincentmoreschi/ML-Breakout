@@ -56,9 +56,14 @@ public class PaddleAgentJL : Agent
     
     public override void CollectObservations(VectorSensor sensor)
     {
+        // if (BallManager.Instance._ballRb.velocity.magnitude < 0.5f) {
+        //     BallManager.Instance.ShootBall();
+        // }
+
         if (GameManager.Instance.lives < currentLives) {
             // Debug.Log("Deathwall Penalty");
             SetReward(-2.0f);
+            BallManager.Instance.ShootBall();
             currentLives = GameManager.Instance.lives;
         }
         if (GameManager.Instance.lives == 1) {
@@ -68,17 +73,20 @@ public class PaddleAgentJL : Agent
         }
         if (ball != null) {
             sensor.AddObservation(ball.transform.position);
+            sensor.AddObservation(ball.transform.position-transform.position);
         }
+
         sensor.AddObservation(transform.position);
-        sensor.AddObservation(ball.transform.position-transform.position);
         sensor.AddObservation(leftWall-transform.position);
         sensor.AddObservation(rightWall-transform.position);
 
         foreach (Brick brick in bricksList) {
             if (brick != null) {
-            sensor.AddObservation(brick.transform.position);
-            sensor.AddObservation(brick.transform.position-ball.transform.position);
-            sensor.AddObservation(brick.transform.position-transform.position);
+                sensor.AddObservation(brick.transform.position);
+                sensor.AddObservation(brick.transform.position-transform.position);
+                if (ball != null) {
+                    sensor.AddObservation(brick.transform.position-ball.transform.position);
+                }
             }
         }
 
@@ -98,13 +106,8 @@ public class PaddleAgentJL : Agent
 
         float moveSpeed = 5f;
         transform.position += new Vector3(moveX,0,0) * Time.deltaTime * moveSpeed;
-
     }
-    // private void OnCollisionEnter2D(Collision2D other) 
-    //     {
-    //         Debug.Log("paddle hits ball penalty");
-    //         SetReward(-0.001f);
-    //     }
+
 
     public override void Heuristic(in ActionBuffers actionsOut)
     {
