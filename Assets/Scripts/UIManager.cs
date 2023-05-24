@@ -27,6 +27,7 @@ public class UIManager : MonoBehaviour
     public TMP_Text levelText;
     public TMP_Text scoreText;
     public TMP_Text livesText;
+    public TMP_Text finalScoreText;
 
     public void UpdateLevelText()
     {
@@ -41,5 +42,10 @@ public class UIManager : MonoBehaviour
     public void UpdateLivesText()
     {
         livesText.text = $"Lives{Environment.NewLine}{GameManager.Instance.lives}";
+    }
+
+    public void UpdateFinalScoreText()
+    {
+        finalScoreText.text = $"Final Score{Environment.NewLine}{GameManager.Instance.score}";
     }
 }

@@ -64,4 +64,9 @@ public class Paddle : MonoBehaviour
         Vector2 force = new Vector2(horizontalForce, BallManager.Instance.ballStartForce);
         ballRb.AddForce(force);
     }
+
+    public void ResetPosition()
+    {
+        transform.position = _paddlePositionInitial;
+    }
 }

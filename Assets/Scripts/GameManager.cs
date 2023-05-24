@@ -1,46 +1,80 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager _instance;
+    #region Singleton
+    public static GameManager Instance { get; private set; }
 
-    public static GameManager Instance => GameManager._instance;
-    
-    private void Awake() {
-        if (GameManager._instance != null) {
-            Destroy(gameObject);
-        } else {
-            GameManager._instance = this;
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
         }
     }
+    #endregion
 
     public int score { get; set; }
     public int lives { get; set; }
     public bool gameStarted { get; set; }
+
     public GameObject gameOverScreen;
 
     public GameObject victoryScreen;
 
     public int initialLives = 3;
     public int brickPoints;  // Number of points given for each brick hitpoint
-    public int currentLevel;
 
     void Start()
     {
-        Brick.OnBrickDestruction += UpdateScore;
-
-        this.lives = this.initialLives;
-        this.currentLevel = LevelManager.Instance.currentLevel;
+        lives = initialLives;
         gameStarted = false;
-        Ball.OnBallDeath += OnBallDeath;
 
         UIManager.Instance.UpdateLevelText();
         UIManager.Instance.UpdateLivesText();
         // Debug.Log(gameOverScreen.GetInstanceID());
+    }
+
+    private void OnEnable()
+    {
+        Brick.OnBrickDestruction += UpdateScore;
+        Ball.OnBallDeath += OnBallDeath;
+    }
+
+    private void OnDisable()
+    {
+        // Necessary for re-loading game scenes
+        Brick.OnBrickDestruction -= UpdateScore;
+        Ball.OnBallDeath -= OnBallDeath;
+    }
+
+    public void OnBallDeath(Ball ball)
+    {
+        lives--;
+        UIManager.Instance.UpdateLivesText();
+
+        if (lives <= 0)
+        {
+            BallManager.Instance.DestroyBalls();
+
+            gameOverScreen.SetActive(true);
+        }
+        else
+        {
+            BallManager.Instance.ResetBall();
+
+            // Pause the game
+            gameStarted = false;
+        }
     }
 
     private void UpdateScore(Brick brick)
@@ -49,52 +83,31 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.UpdateScoreText();
     }
 
-    public void OnBallDeath(Ball ball)
+    /// <summary>
+    /// Reset lives to initialLives and update the UI.
+    /// </summary>
+    public void ResetLives()
     {
-        // Debug.Log(BallManager.Instance.Balls.Count.ToString());
-        // if (BallManager.Instance.Balls.Count <= 0) {
-        //     Debug.Log("Balls count is 0");
-        //     //gameStarted = false;
-            if(currentLevel == LevelManager.Instance.currentLevel) {
-                this.lives--;
-                UIManager.Instance.UpdateLivesText();
-            } else {
-                currentLevel = LevelManager.Instance.currentLevel;
-            }
-
-            // if (gameOverScreen == null){
-            //     Debug.Log("Creating gameoverscreen instance");
-            //     gameOverScreen = GameOverScenario.Instance;
-            //     Debug.Log(gameOverScreen.GetInstanceID());
-            // }
-
-            if (this.lives <= 0) {
-                gameOverScreen.SetActive(true);
-                gameStarted = false;
-            } else {
-                // reload level
-                BallManager.Instance.ResetBall();
-
-                //pause the game
-                gameStarted = false;
-
-                //reload level if retry option chosen
-                // LevelManager.Instance.GenerateLevel(LevelManager.Instance.currentLevel);
-            }
-        // }
+        lives = initialLives;
+        UIManager.Instance.UpdateLivesText();
     }
 
-    public void RestartGame() {
-        this.lives = initialLives;
-        this.score = 0;
-        gameOverScreen.SetActive(false);
+    /// <summary>
+    /// Reset score to 0 and update the UI.
+    /// </summary>
+    public void ResetScore()
+    {
+        score = 0;
+        UIManager.Instance.UpdateScoreText();
+    }
+
+    public void RestartGame()
+    {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void LoadMainMenu() {
-        this.lives = initialLives;
-        this.score = 0;
-        LevelManager.Instance.currentLevel = 1;
-        SceneManager.LoadScene("MainMenu",LoadSceneMode.Single);
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
