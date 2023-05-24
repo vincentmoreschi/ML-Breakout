@@ -3,8 +3,21 @@ using UnityEngine;
 
 public class BallManager : MonoBehaviour
 {
-    private static BallManager _instance;
-    public static BallManager Instance => BallManager._instance;
+    #region Singleton
+    public static BallManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+    #endregion
 
     public Ball ballRedPrefab;
     public float ballStartForce;
@@ -13,25 +26,14 @@ public class BallManager : MonoBehaviour
     public Ball _ball;
     private Rigidbody2D _ballRb;
 
-    private void Awake()
-    {
-        if (BallManager._instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            BallManager._instance = this;
-        }
-    }
-    // public List<Ball> Balls { get; set; }
+    public List<Ball> Balls { get; set; }
 
     void Start()
     {
         CreateBall(ballRedPrefab);
     }
 
-private void LateUpdate()
+    private void LateUpdate()
     {
         if (!GameManager.Instance.gameStarted)
         {
@@ -39,11 +41,17 @@ private void LateUpdate()
             Vector3 ballPosition = new Vector3(paddlePosition.x, paddlePosition.y + padding, paddlePosition.z);
             _ball.transform.position = ballPosition;
 
-
-            GameManager.Instance.gameStarted = true;
-
-            _ballRb.AddForce(new Vector2(0, ballStartForce));
+            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+            {
+                GameManager.Instance.gameStarted = true;
+                ShootBall();
+            }
         }
+    }
+
+    public void ShootBall()
+    {
+        _ballRb.AddForce(new Vector2(0, ballStartForce));
     }
 
     public void CreateBall(Ball ballPrefab)
@@ -54,18 +62,22 @@ private void LateUpdate()
         _ball = Instantiate(ballPrefab, ballPosition, Quaternion.identity) as Ball;
         _ballRb = _ball.GetComponent<Rigidbody2D>();
 
-        // this.Balls = new List<Ball> {
-        //     _ball
-        // };
+        this.Balls = new List<Ball> {
+            _ball
+        };
+    }
+
+    public void DestroyBalls()
+    {
+        foreach (var ball in this.Balls)
+        {
+            Destroy(ball.gameObject);
+        }
     }
 
     internal void ResetBall()
     {
-        // foreach (var ball in this.Balls) {
-        //     Destroy(ball.gameObject);
-        // }
-        Destroy(_ball.gameObject);
+        DestroyBalls();
         CreateBall(ballRedPrefab);
     }
-
 }
