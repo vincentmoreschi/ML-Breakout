@@ -11,8 +11,10 @@ public class PaddleAgent : Agent
     private int bricks; 
     private GameObject ball;
     private GameObject brickContainer;
+    private GameObject walls;
+    private int episodeCount;
 
-    private Ball target;
+    // private Ball target;
 
     private Brick[] bricksList;
 
@@ -21,6 +23,7 @@ public class PaddleAgent : Agent
         // BallManager.Instance.CreateBall(target);
         bricks = LevelManager.Instance.RemainingBricks;
         brickContainer = LevelManager.Instance._bricksContainer;
+        episodeCount = 0;
     }
     // [SerializeField] private Transform ballTransform;
     public override void OnEpisodeBegin(){
@@ -30,9 +33,14 @@ public class PaddleAgent : Agent
         brickContainer = GameObject.Find("Bricks Container");
         bricksList = brickContainer.GetComponentsInChildren<Brick>();
         bricks = LevelManager.Instance.RemainingBricks;
+        walls = GameObject.Find("Walls");
+        Debug.Log(episodeCount);
+        episodeCount++;
         Debug.Log(ball);
         Debug.Log(brickContainer);
         Debug.Log(bricksList.GetLength(0));
+        Debug.Log(ball.transform.position-transform.position);
+        Debug.Log(walls.transform.position-transform.position);
         GameManager.Instance.lives = 3;
     }
     
@@ -40,13 +48,14 @@ public class PaddleAgent : Agent
     {
         if (ball == null) {
             Debug.Log("Deathwall Penalty");
-            SetReward(-2f);
+            SetReward(-2.0f);
             EndEpisode();
         }
 
         sensor.AddObservation(ball.transform.position);
         sensor.AddObservation(transform.position);
         sensor.AddObservation(ball.transform.position-transform.position);
+        sensor.AddObservation(walls.transform.position-transform.position);
 
         foreach (Brick brick in bricksList) {
             if (brick != null)
@@ -56,7 +65,7 @@ public class PaddleAgent : Agent
         if (LevelManager.Instance.RemainingBricks < bricks) {
             for (int i=0;i<bricks-(LevelManager.Instance.RemainingBricks);i++) {
                 Debug.Log("Brick break reward");
-                SetReward(1.0f);
+                SetReward(2.0f);
             }
             bricks = LevelManager.Instance.RemainingBricks;
         }
@@ -67,29 +76,14 @@ public class PaddleAgent : Agent
 
         float moveX = actions.ContinuousActions[0];
 
-        int moveSpeed = 7;
+        int moveSpeed = 10;
         transform.position += new Vector3(moveX,0,0) * Time.deltaTime * moveSpeed;
 
     }
 private void OnCollisionEnter2D(Collision2D other) 
      {
         Debug.Log("paddle hits ball reward");
-        SetReward(+1f);
-        // if (other.otherCollider.tag) {
-        //     Debug.Log("paddle hits ball reward");
-        //     SetReward(+1f);
-        // }
-
-        // if (other.otherCollider.TryGetComponent<Brick> (out Brick brick)) {
-        //     Debug.Log("Brick break reward");
-        //     SetReward(+2f);
-        // }
-
-        // if (other.otherCollider.TryGetComponent<DeathWall> (out DeathWall deathWall)) {
-        //     Debug.Log("Deathwall Penalty");
-        //     SetReward(-2f);
-        //     EndEpisode();
-        // }
+        SetReward(1.0f);
      }
 
     public override void Heuristic(in ActionBuffers actionsOut)
