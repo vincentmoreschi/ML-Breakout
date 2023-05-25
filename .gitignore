@@ -75,3 +75,7 @@ crashlytics-build.properties
 .vscode/
 /results/
 /python-envs/
+
+python-envs/*
+
+results
