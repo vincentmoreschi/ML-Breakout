@@ -7,7 +7,8 @@ public class Ball : MonoBehaviour
 {
     // Start is called before the first frame update
     
-    public float minY = -5 ;
+    public float minY = -4.7f ;
+    public float maxY = 6.0f ;
 
     private GameObject ballSpawn;
     public float maxVelocity = 10f;
@@ -21,7 +22,7 @@ public class Ball : MonoBehaviour
     void Update()
     {
         if (ballSpawn) {
-            if(transform.position.y < minY){
+            if(transform.position.y < minY || transform.position.y > maxY){
                 transform.position = ballSpawn.transform.position;
                 rb.velocity = Vector3.zero;
             }
