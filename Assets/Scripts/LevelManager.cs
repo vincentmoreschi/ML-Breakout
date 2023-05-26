@@ -36,7 +36,7 @@ public class LevelManager : MonoBehaviour
 
     private int _levelRows = 15;
     private int _levelCols = 12;
-    private Vector3 _initialBrickPosition = new Vector3(-1.99f, 3.377f, 0f);  // Top-left brick position
+    private Vector3 _initialBrickPosition = new Vector3(-1.99f, 3.377f, 0f);  // Top-left brick position in an environment centered on (0, 0, 0)
     private float _shift = 0.365f;  // Brick width + padding
 
     // Start is called before the first frame update
@@ -138,7 +138,8 @@ public class LevelManager : MonoBehaviour
 
         player.RemainingBricks = 0;
 
-        float currentX = _initialBrickPosition.x;
+        // Local position is affected by parent position
+        float currentX = player.transform.position.x + _initialBrickPosition.x;
         float currentY = _initialBrickPosition.y;
 
         for (int i = 0; i < levelHpData.GetLength(0); i++)
@@ -159,7 +160,7 @@ public class LevelManager : MonoBehaviour
                 currentX += _shift;
             }
 
-            currentX = _initialBrickPosition.x;
+            currentX = player.transform.position.x + _initialBrickPosition.x;
             currentY -= _shift;
         }
     }

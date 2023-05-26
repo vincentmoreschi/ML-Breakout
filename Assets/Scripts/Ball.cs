@@ -7,7 +7,7 @@ public class Ball : MonoBehaviour
 {
     public static event Action<Ball> OnBallDeath;
 
-    public Player player;
+    public Player player { get; set; }
 
     public float minY = -5 ;
     public float maxVelocity = 10f;

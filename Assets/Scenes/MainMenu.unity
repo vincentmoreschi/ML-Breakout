@@ -550,53 +550,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 824862252}
   m_CullTransparentMesh: 1
---- !u!1 &899382538
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 899382540}
-  - component: {fileID: 899382539}
-  m_Layer: 0
-  m_Name: Controller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &899382539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 899382538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f909101b61e238e4cba3e7b4dceb84dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  singlePlayerMode: Breakout
-  versusMode: versusLevel1
-  optionsView: optionsMenu
---- !u!4 &899382540
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 899382538}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1189.7517, y: 472.80548, z: -7.4092693}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &931919680
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,6 +711,53 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1096664725
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1096664727}
+  - component: {fileID: 1096664726}
+  m_Layer: 0
+  m_Name: Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1096664726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096664725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f909101b61e238e4cba3e7b4dceb84dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  singlePlayerMode: Breakout
+  versusMode: Versus
+  optionsView: optionsMenu
+--- !u!4 &1096664727
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1096664725}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.8049055, y: -0.48655343, z: 67.07251}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1443192745
 GameObject:
   m_ObjectHideFlags: 0
@@ -905,7 +905,6 @@ GameObject:
   - component: {fileID: 1553260986}
   - component: {fileID: 1553260985}
   - component: {fileID: 1553260984}
-  - component: {fileID: 1553260987}
   m_Layer: 5
   m_Name: Versus
   m_TagString: Untagged
@@ -978,7 +977,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1553260987}
+      - m_Target: {fileID: 1096664726}
         m_TargetAssemblyTypeName: GameController, Assembly-CSharp
         m_MethodName: versusModeButton
         m_Mode: 1
@@ -1028,21 +1027,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1553260982}
   m_CullTransparentMesh: 1
---- !u!114 &1553260987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1553260982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f909101b61e238e4cba3e7b4dceb84dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  singlePlayerMode: singleLevel1
-  versusMode: versusLevel1
-  optionsView: optionsMenu
 --- !u!1 &1608877199
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,7 +1039,6 @@ GameObject:
   - component: {fileID: 1608877203}
   - component: {fileID: 1608877202}
   - component: {fileID: 1608877201}
-  - component: {fileID: 1608877204}
   m_Layer: 5
   m_Name: Options
   m_TagString: Untagged
@@ -1128,7 +1111,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1608877204}
+      - m_Target: {fileID: 1096664726}
         m_TargetAssemblyTypeName: GameController, Assembly-CSharp
         m_MethodName: optionsButton
         m_Mode: 1
@@ -1178,21 +1161,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1608877199}
   m_CullTransparentMesh: 1
---- !u!114 &1608877204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1608877199}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f909101b61e238e4cba3e7b4dceb84dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  singlePlayerMode: singleLevel1
-  versusMode: versusLevel1
-  optionsView: optionsMenu
 --- !u!1 &1759749570
 GameObject:
   m_ObjectHideFlags: 0
@@ -1273,7 +1241,6 @@ GameObject:
   - component: {fileID: 1800032000}
   - component: {fileID: 1800031999}
   - component: {fileID: 1800031998}
-  - component: {fileID: 1800032001}
   m_Layer: 5
   m_Name: Single Player
   m_TagString: Untagged
@@ -1346,7 +1313,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1800032001}
+      - m_Target: {fileID: 1096664726}
         m_TargetAssemblyTypeName: GameController, Assembly-CSharp
         m_MethodName: singlePlayerButton
         m_Mode: 1
@@ -1396,21 +1363,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1800031996}
   m_CullTransparentMesh: 1
---- !u!114 &1800032001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1800031996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f909101b61e238e4cba3e7b4dceb84dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  singlePlayerMode: Breakout
-  versusMode: versusLevel1
-  optionsView: optionsMenu
 --- !u!1 &1823241765
 GameObject:
   m_ObjectHideFlags: 0

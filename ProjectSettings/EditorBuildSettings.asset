@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Breakout.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/versusLevel1.unity
-    guid: 5b34d1d433030624f825b279dbd72460
+    path: Assets/Scenes/Versus.unity
+    guid: c0565ec5d1c10fe44805016f9b3f5abb
   m_configObjects: {}

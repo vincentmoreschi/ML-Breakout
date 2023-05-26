@@ -7,7 +7,7 @@ public class Brick : MonoBehaviour
 {
     public static event Action<Brick> OnBrickDestruction;
 
-    public Player player;
+    public Player player { get; set; }
 
     public int hp = 1;
     public int initialHp { get; private set; }

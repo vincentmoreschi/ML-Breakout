@@ -15,9 +15,6 @@ public class PaddleAgentKC : Agent
     private Vector3 _screenBounds;
     void Start()
     {
-        Brick.OnBrickDestruction += OnBrickDestructionReward;
-        Ball.OnBallDeath += OnBallDeathReward;
-
         player = GameManager.Instance.players[1];  // AI player
 
         _speed = player.paddle.speed;
@@ -25,18 +22,12 @@ public class PaddleAgentKC : Agent
         _screenBounds = _background.GetComponent<SpriteRenderer>().bounds.extents;
     }
 
-    public override void OnEpisodeBegin()
-    {
-        LevelManager.Instance.ResetLevels(player);
-        GameManager.Instance.ResetScore(player);
-        GameManager.Instance.ResetLives(player);
-        player.paddle.ResetPosition();
-    }
-
     public override void CollectObservations(VectorSensor sensor)
     {
+        // Observations are based on local positions.
+
         // Paddle position
-        sensor.AddObservation(transform.position);
+        sensor.AddObservation(transform.localPosition);
 
         // Wall positions
         sensor.AddObservation(-1 * _screenBounds.x);
@@ -60,25 +51,5 @@ public class PaddleAgentKC : Agent
             player.gameStarted = true;
             BallManager.Instance.ShootBall(player);
         }
-    }
-
-    public override void Heuristic(in ActionBuffers actionsOut)
-    {
-        ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
-        continuousActions[0] = Input.GetAxisRaw("Horizontal");
-
-        ActionSegment<int> discreteActions = actionsOut.DiscreteActions;
-        discreteActions[0] = Input.GetKeyDown(KeyCode.Space) ? 1 : 0;
-    }
-
-    private void OnBrickDestructionReward(Brick brick)
-    {
-        SetReward(0.1f);
-    }
-
-    private void OnBallDeathReward(Ball obj)
-    {
-        SetReward(-1f);
-        EndEpisode();
     }
 }

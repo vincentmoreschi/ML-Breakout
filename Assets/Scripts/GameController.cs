@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private string singlePlayerMode = "Breakout";
-    [SerializeField] private string versusMode = "versusLevel1";
-    [SerializeField] private string optionsView = "optionsMenu";
+    [SerializeField] private string singlePlayerMode;
+    [SerializeField] private string versusMode;
+    [SerializeField] private string optionsView;
 
     public void singlePlayerButton() {
         SceneManager.LoadScene(singlePlayerMode);

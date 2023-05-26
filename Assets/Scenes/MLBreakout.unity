@@ -658,6 +658,7 @@ GameObject:
   - component: {fileID: 272208453}
   - component: {fileID: 272208452}
   - component: {fileID: 272208451}
+  - component: {fileID: 272208458}
   - component: {fileID: 272208457}
   - component: {fileID: 272208450}
   - component: {fileID: 272208448}
@@ -743,7 +744,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ab5aa7c526845b409acd9ec97982570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  background: {fileID: 1948560301}
 --- !u!114 &272208452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -756,6 +756,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca9efd3a3ba9194498dc0e25dcec9c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   speed: 5
   horizontalBounceMultiplier: 250
 --- !u!60 &272208453
@@ -884,9 +885,25 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 272208446}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 863e292b05c9da14cb2c3658c1f77399, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+--- !u!114 &272208458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272208446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f1f8f2b2b9df4478232f67b69206bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   agentParameters:
