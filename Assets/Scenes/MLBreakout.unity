@@ -989,6 +989,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 314958140}
   m_CullTransparentMesh: 1
+--- !u!114 &314958144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 314958140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa533f97c8f081d408b4d79988c920c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &343373164
 GameObject:
   m_ObjectHideFlags: 0
@@ -2187,6 +2199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af8ee253c6f6ccb4cabe1851030424c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverScreen: {fileID: 314958144}
   initialLives: 3
   brickPoints: 50
 --- !u!1 &1623582118
@@ -2647,6 +2660,7 @@ MonoBehaviour:
   ballRedPrefab: {fileID: 8328126268780514528, guid: b8d9c7b641af9914196d6a5af94d1dd6, type: 3}
   ballStartForce: 400
   padding: 0.26
+  _ball: {fileID: 0}
 --- !u!1 &1813720635
 GameObject:
   m_ObjectHideFlags: 0
