@@ -5,22 +5,6 @@ using UnityEngine;
 
 public class Paddle : MonoBehaviour
 {
-    #region Singleton
-    public static Paddle Instance { get; private set; }
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-        }
-    }
-    #endregion
-
     public float speed;
     public float horizontalBounceMultiplier;  // Affects how much the ball bounces left or right during collisions
 

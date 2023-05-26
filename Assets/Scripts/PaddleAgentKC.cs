@@ -8,26 +8,29 @@ using System;
 
 public class PaddleAgentKC : Agent
 {
+    private Player player;
+
     private float _speed;
     private GameObject _background;
     private Vector3 _screenBounds;
-
     void Start()
     {
         Brick.OnBrickDestruction += OnBrickDestructionReward;
         Ball.OnBallDeath += OnBallDeathReward;
 
-        _speed = gameObject.GetComponent<Paddle>().speed;
-        _background = gameObject.GetComponent<ClampToBoundaries>().background;
+        player = GameManager.Instance.players[1];  // AI player
+
+        _speed = player.paddle.speed;
+        _background = GameObject.Find("Background");
         _screenBounds = _background.GetComponent<SpriteRenderer>().bounds.extents;
     }
 
     public override void OnEpisodeBegin()
     {
-        LevelManager.Instance.ResetLevels();
-        GameManager.Instance.ResetScore();
-        GameManager.Instance.ResetLives();
-        Paddle.Instance.ResetPosition();
+        LevelManager.Instance.ResetLevels(player);
+        GameManager.Instance.ResetScore(player);
+        GameManager.Instance.ResetLives(player);
+        player.paddle.ResetPosition();
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -52,10 +55,10 @@ public class PaddleAgentKC : Agent
 
         // Shoot the ball
         int shoot = actions.DiscreteActions[0];
-        if (!GameManager.Instance.gameStarted && shoot == 1)
+        if (!player.gameStarted && shoot == 1)
         {
-            GameManager.Instance.gameStarted = true;
-            BallManager.Instance.ShootBall();
+            player.gameStarted = true;
+            BallManager.Instance.ShootBall(player);
         }
     }
 

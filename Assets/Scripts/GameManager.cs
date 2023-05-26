@@ -1,9 +1,11 @@
+using Google.Protobuf.Collections;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,25 +25,10 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public int score { get; set; }
-    public int lives { get; set; }
-    public bool gameStarted { get; set; }
-
-    public GameObject gameOverScreen;
-    public GameObject victoryScreen;
-
     public int initialLives = 3;
     public int brickPoints;  // Number of points given for each brick hitpoint
 
-    void Start()
-    {
-        lives = initialLives;
-        gameStarted = false;
-
-        UIManager.Instance.UpdateLevelText();
-        UIManager.Instance.UpdateLivesText();
-        // Debug.Log(gameOverScreen.GetInstanceID());
-    }
+    public Player[] players { get; set; }  // { human, AI }
 
     private void OnEnable()
     {
@@ -56,48 +43,85 @@ public class GameManager : MonoBehaviour
         Ball.OnBallDeath -= OnBallDeath;
     }
 
+    void Start()
+    {
+        // Set up players array.
+        // The first index is reserved for the human player.
+        // The second index is reversed for the AI player.
+        // Elements in the array may be null if only the human or AI is playing.
+        players = new Player[2];
+
+        GameObject human = GameObject.Find("Human");
+        if (human != null)
+        {
+            players[0] = human.GetComponent<Player>();
+        }
+
+        GameObject AI = GameObject.Find("AI");
+        if (AI != null)
+        {
+            players[1] = AI.GetComponent<Player>();
+        }
+
+        // Update UI
+        foreach (Player player in players)
+        {
+            if ( player != null )
+            {
+                UIManager.Instance.UpdateLevelText(player);
+                UIManager.Instance.UpdateScoreText(player);
+                UIManager.Instance.UpdateLivesText(player);
+            }
+        }
+    }
+
     public void OnBallDeath(Ball ball)
     {
-        lives--;
-        UIManager.Instance.UpdateLivesText();
+        Player player = ball.player;
 
-        if (lives <= 0)
+        player.lives--;
+        UIManager.Instance.UpdateLivesText(player);
+
+        if (player.lives <= 0)
         {
-            BallManager.Instance.DestroyBalls();
+            BallManager.Instance.DestroyBalls(player);
 
-            gameOverScreen.SetActive(true);
+            player.gameOverScreen.SetActive(true);
         }
         else
         {
-            BallManager.Instance.ResetBall();
+            BallManager.Instance.ResetBall(player);
+            //player.paddle.ResetPosition();
 
             // Pause the game
-            gameStarted = false;
+            player.gameStarted = false;
         }
     }
 
     private void UpdateScore(Brick brick)
     {
-        score += brick.initialHp * brickPoints;
-        UIManager.Instance.UpdateScoreText();
+        Player player = brick.player;
+
+        player.score += brick.initialHp * GameManager.Instance.brickPoints;
+        UIManager.Instance.UpdateScoreText(player);
     }
 
     /// <summary>
     /// Reset lives to initialLives and update the UI.
     /// </summary>
-    public void ResetLives()
+    public void ResetLives(Player player)
     {
-        lives = initialLives;
-        UIManager.Instance.UpdateLivesText();
+        player.lives = initialLives;
+        UIManager.Instance.UpdateLivesText(player);
     }
 
     /// <summary>
     /// Reset score to 0 and update the UI.
     /// </summary>
-    public void ResetScore()
+    public void ResetScore(Player player)
     {
-        score = 0;
-        UIManager.Instance.UpdateScoreText();
+        player.score = 0;
+        UIManager.Instance.UpdateScoreText(player);
     }
 
     public void RestartGame()

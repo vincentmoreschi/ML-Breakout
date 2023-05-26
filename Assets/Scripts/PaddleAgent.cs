@@ -7,20 +7,24 @@ using Unity.MLAgents.Actuators;
 
 public class PaddleAgent : Agent
 {
-    // Start is called before the first frame update
-    private int bricks; 
+    private Player player;
+
+    private int bricks;
     private Ball ball;
     void Start()
     {
-       BallManager.Instance.CreateBall(ball);
-       bricks = LevelManager.Instance.RemainingBricks;
+        player = GameManager.Instance.players[1];
+
+        BallManager.Instance.CreateBall(player, ball);
+        bricks = player.RemainingBricks;
     }
 
-    public override void OnEpisodeBegin(){
+    public override void OnEpisodeBegin()
+    {
         // GameManager.Instance.gameStarted = true;
-        
-        if(ball.transform.localPosition.y <= -4.8)
-            BallManager.Instance.ResetBall();
+
+        if (ball.transform.localPosition.y <= -4.8)
+            BallManager.Instance.ResetBall(player);
     }
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -36,16 +40,17 @@ public class PaddleAgent : Agent
         controlSignal.x = actionBuffers.ContinuousActions[0];
 
         Vector3 direction = new Vector3(controlSignal.x, 0, 0);
-        this.transform.Translate(10  * controlSignal.x * direction);
+        this.transform.Translate(10 * controlSignal.x * direction);
 
-        if(LevelManager.Instance.RemainingBricks < bricks){
+        if (player.RemainingBricks < bricks)
+        {
             SetReward(1.0f);
         }
         if (ball.transform.localPosition.y <= 4.8)
         {
             EndEpisode();
         }
-        bricks = LevelManager.Instance.RemainingBricks;
+        bricks = player.RemainingBricks;
     }
     public override void Heuristic(in ActionBuffers actionsOut)
     {

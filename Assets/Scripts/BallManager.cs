@@ -23,61 +23,75 @@ public class BallManager : MonoBehaviour
     public float ballStartForce;
     public float padding;  // Padding between ball and paddle
 
-    public Ball _ball;
-    private Rigidbody2D _ballRb;
-
-    public List<Ball> Balls { get; set; }
-
     void Start()
     {
-        CreateBall(ballRedPrefab);
-    }
-
-    private void LateUpdate()
-    {
-        if (!GameManager.Instance.gameStarted)
+        foreach (Player player in GameManager.Instance.players)
         {
-            Vector3 paddlePosition = Paddle.Instance.transform.position;
-            Vector3 ballPosition = new Vector3(paddlePosition.x, paddlePosition.y + padding, paddlePosition.z);
-            _ball.transform.position = ballPosition;
-
-            if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+            if (player != null)
             {
-                GameManager.Instance.gameStarted = true;
-                ShootBall();
+                CreateBall(player, ballRedPrefab);
             }
         }
     }
 
-    public void ShootBall()
+    private void LateUpdate()
     {
-        _ballRb.AddForce(new Vector2(0, ballStartForce));
+        foreach (Player player in GameManager.Instance.players)
+        {
+            if (player != null && !player.gameStarted && player.balls.Count == 1)
+            {
+                Ball ball = player.balls[0];
+
+                Vector3 paddlePosition = player.paddle.transform.position;
+                Vector3 ballPosition = new Vector3(paddlePosition.x, paddlePosition.y + padding, paddlePosition.z);
+                ball.transform.position = ballPosition;
+
+                if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+                {
+                    player.gameStarted = true;
+                    ShootBall(player);
+                }
+            }
+        }
     }
 
-    public void CreateBall(Ball ballPrefab)
+    /// <summary>
+    /// Shoot the ball.
+    /// 
+    /// This method should only be called after balls have been reset and the game has not started.
+    /// </summary>
+    /// <param name="player"></param>
+    public void ShootBall(Player player)
     {
-        Vector3 paddlePosition = Paddle.Instance.transform.position;
+        if (player.balls.Count == 1)
+        {
+            Ball ball = player.balls[0];
+            ball.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, ballStartForce));
+        }
+    }
+
+    public void CreateBall(Player player, Ball ballPrefab)
+    {
+        Vector3 paddlePosition = player.paddle.transform.position;
         Vector3 ballPosition = new Vector3(paddlePosition.x, paddlePosition.y + padding, paddlePosition.z);
 
-        _ball = Instantiate(ballPrefab, ballPosition, Quaternion.identity) as Ball;
-        _ballRb = _ball.GetComponent<Rigidbody2D>();
+        Ball ball = Instantiate(ballPrefab, ballPosition, Quaternion.identity) as Ball;
+        ball.Init(player);
 
-        this.Balls = new List<Ball> {
-            _ball
-        };
+        player.balls = new List<Ball> { ball };
     }
 
-    public void DestroyBalls()
+    public void DestroyBalls(Player player)
     {
-        foreach (var ball in this.Balls)
+        foreach (Ball ball in player.balls)
         {
             Destroy(ball.gameObject);
         }
     }
 
-    internal void ResetBall()
+    public void ResetBall(Player player)
     {
-        DestroyBalls();
-        CreateBall(ballRedPrefab);
+        DestroyBalls(player);
+        CreateBall(player, ballRedPrefab);
     }
 }
