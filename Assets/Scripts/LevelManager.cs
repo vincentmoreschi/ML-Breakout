@@ -22,9 +22,7 @@ public class LevelManager : MonoBehaviour
     }
     #endregion
 
-    public int RemainingBricks { get; set; }  // Number of bricks left in the current level
-
-    public int currentLevel;
+    public int initialLevel;
 
     public Sprite[] brickSprites;  // { 1 hp brick, 2 hp brick, 3 hp brick }
     public Color[] brickColors;
@@ -38,20 +36,22 @@ public class LevelManager : MonoBehaviour
 
     private int _levelRows = 15;
     private int _levelCols = 12;
-    private Vector3 _initialBrickPosition = new Vector3(-1.99f, 3.377f, 0f);  // Top-left brick position
+    private Vector3 _initialBrickPosition = new Vector3(-1.99f, 3.377f, 0f);  // Top-left brick position in an environment centered on (0, 0, 0)
     private float _shift = 0.365f;  // Brick width + padding
-
-    private GameObject _bricksContainer;  // Container to hold instantiated bricks
 
     // Start is called before the first frame update
     void Start()
     {
-        _bricksContainer = new GameObject("Bricks Container");
-
         _levelsHpData = LoadLevelsHpData();
         _levelsColorsData = LoadLevelsColorsData();
 
-        GenerateLevel(currentLevel);
+        foreach (Player player in GameManager.Instance.players)
+        {
+            if (player != null)
+            {
+                GenerateLevel(player, player.currentLevel);
+            }
+        }
     }
 
     private void OnEnable()
@@ -67,81 +67,79 @@ public class LevelManager : MonoBehaviour
 
     private void LevelCompletion(Brick brick)
     {
-        if (CheckLevelCompletion())
-        {
-            if (CheckFinalLevel())
-            {
-                BallManager.Instance.DestroyBalls();
+        Player player = brick.player;
 
-                UIManager.Instance.UpdateFinalScoreText();
-                GameManager.Instance.victoryScreen.SetActive(true);
+        if (CheckLevelCompletion(player))
+        {
+            if (CheckFinalLevel(player))
+            {
+                BallManager.Instance.DestroyBalls(player);
+
+                UIManager.Instance.UpdateFinalScoreText(player);
+                player.victoryScreen.SetActive(true);
             }
             else
             {
                 // TODO: level change visual?
-                currentLevel++;
+                player.currentLevel++;
 
-                GenerateLevel(currentLevel);
-                UIManager.Instance.UpdateLevelText();
-                BallManager.Instance.ResetBall();
+                GenerateLevel(player, player.currentLevel);
+                UIManager.Instance.UpdateLevelText(player);
+                BallManager.Instance.ResetBall(player);
+                //player.paddle.ResetPosition();
 
-                GameManager.Instance.gameStarted = false;
+                player.gameStarted = false;
             }
         }
     }
 
-    public bool CheckLevelCompletion()
+    public bool CheckLevelCompletion(Player player)
     {
-        return RemainingBricks == 0;
+        return player.RemainingBricks == 0;
     }
-    public bool CheckFinalLevel()
+    public bool CheckFinalLevel(Player player)
     {
-        return currentLevel == _levelsHpData.Count;
+        return player.currentLevel == _levelsHpData.Count;
     }
 
     /// <summary>
     /// Destroy all bricks in the current level.
     /// </summary>
-    public void ClearLevel()
+    public void ClearLevel(Player player)
     {
         // Destroy all current bricks
-        for (int i = 0; i < _bricksContainer.transform.childCount; i++)
+        for (int i = 0; i < player.bricksContainer.transform.childCount; i++)
         {
-            Destroy(_bricksContainer.transform.GetChild(i).gameObject);
+            Destroy(player.bricksContainer.transform.GetChild(i).gameObject);
         }
     }
 
     /// <summary>
     /// Reset the current level to level 1 and update the UI.
     /// </summary>
-    public void ResetLevels()
+    public void ResetLevels(Player player)
     {
-        ClearLevel();
+        ClearLevel(player);
 
-        currentLevel = 1;
-        GenerateLevel(currentLevel);
+        player.currentLevel = 1;
+        GenerateLevel(player, player.currentLevel);
 
-        UIManager.Instance.UpdateLevelText();
-    }
-
-    public void reloadLevel(int level)
-    {
-        this.currentLevel = level;
-        this.GenerateLevel(this.currentLevel);
+        UIManager.Instance.UpdateLevelText(player);
     }
 
     /// <summary>
     /// Generate the current level.
     /// </summary>
     /// <param name="currentLevel">Current level in the game.</param>
-    public void GenerateLevel(int currentLevel)
+    public void GenerateLevel(Player player, int currentLevel)
     {
         int[,] levelHpData = _levelsHpData[currentLevel - 1];
         int[,] levelColorData = _levelsColorsData[currentLevel - 1];
 
-        RemainingBricks = 0;
+        player.RemainingBricks = 0;
 
-        float currentX = _initialBrickPosition.x;
+        // Local position is affected by parent position
+        float currentX = player.transform.position.x + _initialBrickPosition.x;
         float currentY = _initialBrickPosition.y;
 
         for (int i = 0; i < levelHpData.GetLength(0); i++)
@@ -154,15 +152,15 @@ public class LevelManager : MonoBehaviour
                 if (brickHp > 0)
                 {
                     Brick brick = Instantiate(brickPrefab, new Vector3(currentX, currentY, _initialBrickPosition.z), Quaternion.identity) as Brick;
-                    brick.Init(_bricksContainer.transform, brickSprites[brickHp - 1], brickColors[brickColor - 1], brickHp);
+                    brick.Init(player, player.bricksContainer.transform, brickSprites[brickHp - 1], brickColors[brickColor - 1], brickHp);
 
-                    RemainingBricks++;
+                    player.RemainingBricks++;
                 }
 
                 currentX += _shift;
             }
 
-            currentX = _initialBrickPosition.x;
+            currentX = player.transform.position.x + _initialBrickPosition.x;
             currentY -= _shift;
         }
     }

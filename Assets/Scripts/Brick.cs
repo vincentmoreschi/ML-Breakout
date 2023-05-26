@@ -7,6 +7,8 @@ public class Brick : MonoBehaviour
 {
     public static event Action<Brick> OnBrickDestruction;
 
+    public Player player { get; set; }
+
     public int hp = 1;
     public int initialHp { get; private set; }
     public ParticleSystem DestructionEffect;
@@ -21,11 +23,13 @@ public class Brick : MonoBehaviour
     /// <summary>
     /// Initialize the brick.
     /// </summary>
+    /// <param name="owner">The player associated with the brick.</param>
     /// <param name="containerTransform">The transform component of the parent container.</param>
     /// <param name="sprite">The brick's sprite image.</param>
     /// <param name="hitpoints">The brick's hitpoints.</param>
-    internal void Init(Transform containerTransform, Sprite sprite, Color color, int hitpoints)
+    public void Init(Player owner, Transform containerTransform, Sprite sprite, Color color, int hitpoints)
     {
+        player = owner;
         transform.SetParent(containerTransform);
         _sr.sprite = sprite;
         _sr.color = color;
@@ -37,7 +41,7 @@ public class Brick : MonoBehaviour
         hp--;
         if (hp <= 0)
         {
-            LevelManager.Instance.RemainingBricks--;
+            player.RemainingBricks--;
             OnBrickDestruction?.Invoke(this);
             ApplyDestructionEffect();
             Destroy(gameObject);

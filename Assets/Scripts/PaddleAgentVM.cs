@@ -8,6 +8,8 @@ using Unity.MLAgents.Actuators;
 
 public class PaddleAgent : Agent
 {
+    private Player player;
+
     // Start is called before the first frame update
     public int bricks; 
     public GameObject ball;
@@ -16,9 +18,11 @@ public class PaddleAgent : Agent
 
     void Start()
     {
-       ball = GameObject.Find("Ball Red(Clone)");
+        player = GameManager.Instance.players[1];  // AI player
+
+        ball = GameObject.Find("Ball Red(Clone)");
        
-       bricks = LevelManager.Instance.RemainingBricks;
+       bricks = player.RemainingBricks;
     }
 
     public override void OnEpisodeBegin(){
@@ -26,7 +30,7 @@ public class PaddleAgent : Agent
         if(ball == null){
          ball = GameObject.Find("Ball Red(Clone)");
         }
-        bricks = LevelManager.Instance.RemainingBricks;
+        bricks = player.RemainingBricks;
         if(ball != null){
             if(ball.transform.position.y < -5){
                 Debug.Log("dead");
@@ -51,7 +55,7 @@ public class PaddleAgent : Agent
        
         gameObject.transform.Translate(1  * controlSignal);
 
-        if(LevelManager.Instance.RemainingBricks < bricks){
+        if(player.RemainingBricks < bricks){
             SetReward(1.0f);
             Debug.Log("reward");
         }
@@ -62,7 +66,7 @@ public class PaddleAgent : Agent
             Debug.Log("end");
             EndEpisode();
         }
-        bricks = LevelManager.Instance.RemainingBricks;
+        bricks = player.RemainingBricks;
     }
     public override void Heuristic(in ActionBuffers actionsOut)
     {

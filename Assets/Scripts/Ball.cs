@@ -5,13 +5,16 @@ using System;
 
 public class Ball : MonoBehaviour
 {
-    // Start is called before the first frame update
-    
+    public static event Action<Ball> OnBallDeath;
+
+    public Player player { get; set; }
+
     public float minY = -5 ;
+    public float maxVelocity = 10f;
 
     private GameObject ballSpawn;
-    public float maxVelocity = 10f;
     Rigidbody2D rb;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -31,11 +34,13 @@ public class Ball : MonoBehaviour
         }
     }
 
-    //Method for ball death.
-    public static event Action<Ball> OnBallDeath;
+    public void Init(Player owner)
+    {
+        player = owner;
+        transform.SetParent(player.transform);
+    }
 
     public void Death() {
         OnBallDeath?.Invoke(this);
-        //Destroy(gameObject);
     }
 }

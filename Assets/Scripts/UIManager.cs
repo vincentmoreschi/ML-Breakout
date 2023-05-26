@@ -23,29 +23,23 @@ public class UIManager : MonoBehaviour
         }
     }
     #endregion
-
-    public TMP_Text levelText;
-    public TMP_Text scoreText;
-    public TMP_Text livesText;
-    public TMP_Text finalScoreText;
-
-    public void UpdateLevelText()
+    public void UpdateLevelText(Player player)
     {
-        levelText.text = $"Level{Environment.NewLine}{LevelManager.Instance.currentLevel}";
+        player.levelText.text = $"Level{Environment.NewLine}{player.currentLevel}";
     }
 
-    public void UpdateScoreText()
+    public void UpdateScoreText(Player player)
     {
-        scoreText.text = $"Score{Environment.NewLine}{GameManager.Instance.score}";
+        player.scoreText.text = $"Score{Environment.NewLine}{player.score}";
     }
 
-    public void UpdateLivesText()
+    public void UpdateLivesText(Player player)
     {
-        livesText.text = $"Lives{Environment.NewLine}{GameManager.Instance.lives}";
+        player.livesText.text = $"Lives{Environment.NewLine}{player.lives}";
     }
 
-    public void UpdateFinalScoreText()
+    public void UpdateFinalScoreText(Player player)
     {
-        finalScoreText.text = $"Final Score{Environment.NewLine}{GameManager.Instance.score}";
+        player.finalScoreText.text = $"Final Score{Environment.NewLine}{player.score}";
     }
 }
