@@ -16,6 +16,7 @@ public class PaddleAgentJL : Agent
     private Vector3 leftWall;
     private Vector3 rightWall;
     private int currentLives;
+    private int currentLevel;
 
     private Player player;
 
@@ -25,104 +26,90 @@ public class PaddleAgentJL : Agent
 
     void Start()
     {
-        // BallManager.Instance.CreateBall(target);
+        player = GameManager.Instance.players[1]; 
         bricks = player.RemainingBricks;
         brickContainer = player.bricksContainer;
         episodeCount = 0;
         leftWall.Set(-2.8f,-4.2f,0);
         rightWall.Set(2.8f,-4.2f,0);
     }
-    // [SerializeField] private Transform ballTransform;
     public override void OnEpisodeBegin(){
-        // BallManager.Instance.CreateBall(BallManager.Instance.ballRedPrefab);
-        BallManager.Instance.ShootBall(player);
-        player.gameStarted = true;
+        // GameManager.Instance.ResetLives(player);
+        LevelManager.Instance.ResetLevels(player);
+        GameManager.Instance.ResetLives(player);
+        GameManager.Instance.ResetScore(player);
+        player.paddle.ResetPosition();
         ball = GameObject.Find("Ball Red(Clone)");
         brickContainer = GameObject.Find("Bricks Container");
         bricksList = brickContainer.GetComponentsInChildren<Brick>();
         bricks = player.RemainingBricks;
-        walls = GameObject.Find("Walls");
-        // Debug.Log(episodeCount);
         episodeCount++;
-        // Debug.Log(ball);
-        // Debug.Log(brickContainer);
-        // Debug.Log(bricksList.GetLength(0));
-        // Debug.Log(transform.position);
-        // Debug.Log(ball.transform.position-transform.position);
-        // Debug.Log(leftWall-transform.position);
-        // Debug.Log(rightWall-transform.position);
-        player.lives = 3;
-        // currentLives = GameManager.Instance.lives;
-
+        currentLives = player.lives;
+        currentLevel = player.currentLevel; 
     }
     
     public override void CollectObservations(VectorSensor sensor)
     {
-        // if (BallManager.Instance._ballRb.velocity.magnitude < 0.5f) {
-        //     BallManager.Instance.ShootBall();
-        // }
-
-        // if (GameManager.Instance.lives < currentLives) {
-        //     // Debug.Log("Deathwall Penalty");
-        //     SetReward(-2.0f);
-        //     BallManager.Instance.ShootBall();
-        //     currentLives = GameManager.Instance.lives;
-        // }
-        // if (GameManager.Instance.lives == 1) {
-        //     // Debug.Log("Deathwall Penalty");
-        //     SetReward(-4.0f);
-        //     EndEpisode();
-        // }
-
         if (ball != null) {
-            sensor.AddObservation(Vector3.Normalize(ball.transform.position));
-            sensor.AddObservation(Vector3.Distance(ball.transform.position,transform.position));
+            sensor.AddObservation(Vector3.Normalize(ball.transform.localPosition));
+            sensor.AddObservation(Vector3.Distance(ball.transform.localPosition,transform.localPosition));
+            sensor.AddObservation(Vector3.Normalize(ball.transform.localPosition-transform.localPosition));
         }
         
-        sensor.AddObservation(Vector3.Normalize(transform.position));
-        sensor.AddObservation(Vector3.Distance(leftWall,transform.position));
-        sensor.AddObservation(Vector3.Distance(rightWall,transform.position));
+        sensor.AddObservation(Vector3.Normalize(transform.localPosition));
+        sensor.AddObservation(Vector3.Distance(leftWall,transform.localPosition));
+        sensor.AddObservation(Vector3.Distance(rightWall,transform.localPosition));
 
         foreach (Brick brick in bricksList) {
             if (brick != null) {
-                sensor.AddObservation(Vector3.Normalize(brick.transform.position));
+                sensor.AddObservation(Vector3.Normalize(brick.transform.localPosition));
             }
         }
-        Debug.Log(bricksList.Length);
+
+        Debug.Log(player.lives);
     }
     public override void OnActionReceived(ActionBuffers actions)
     {
         // Debug.Log(actions.ContinuousActions[0]);
 
-        if (ball==null) {
-            this.OnEpisodeBegin();
+        // if (ball==null) {
+        //     SetReward(-0.5f);
+        //     this.OnEpisodeBegin();
+        // }
+
+        if (player.lives < currentLives) {
+          SetReward(-0.75f);
+          currentLives = player.lives;
         }
 
-        // if (ball != null && ball.GetComponent<Rigidbody2D>().velocity.magnitude < 1f) {
-        //     BallManager.Instance.ShootBall();
-        // }
+        if (!player.gameStarted) {
+            player.gameStarted = true;
+            BallManager.Instance.ShootBall(player);
+        }
 
         float moveX = actions.ContinuousActions[0];
 
         float moveSpeed = 10f;
-        transform.position += new Vector3(moveX,0,0) * Time.deltaTime * moveSpeed;
+        transform.localPosition += new Vector3(moveX,0,0) * Time.deltaTime * moveSpeed;
 
         SetReward(-0.001f);
 
-        if (ball != null && ball.transform.position.y < -4.7f) {
-            SetReward(-0.5f);
-            Debug.Log("reset lower than paddle");
-            BallManager.Instance.ResetBall(player);
-            // EndEpisode();
-        }
+        // if (ball != null && ball.transform.localPosition.y < -4.7f) {
+        //     SetReward(-0.75f);
+        //     player.lives -= 1;
+        //     Debug.Log("reset lower than paddle");
+        //     BallManager.Instance.ResetBall(player);
+        //     BallManager.Instance.ShootBall(player);
+        //     // EndEpisode();
+        // }
 
-        if (ball != null && ball.transform.position.y > 5.0f) {
+        if (ball != null && ball.transform.localPosition.y > 5.0f) {
             Debug.Log("reset higher than wall");
             BallManager.Instance.ResetBall(player);
             // EndEpisode();
         }
 
-        if (ball != null && (ball.transform.position.x < -2.7f || ball.transform.position.x > 2.7f))  {
+        if (ball != null && (ball.transform.localPosition.x < -2.7f || ball.transform.localPosition.x > 2.7f))  {
             SetReward(0.001f);
         }
 
@@ -134,30 +121,35 @@ public class PaddleAgentJL : Agent
             bricks = player.RemainingBricks;
             
         }
-        if (player.RemainingBricks == 0) {
+        
+        if (currentLevel<player.currentLevel) {
             SetReward(0.75f);
-            EndEpisode();
+            currentLevel = player.currentLevel;
         }
-        if (player.currentLevel == 10) {
+        if (player.currentLevel == 11) {
             SetReward(1f);
             player.victoryScreen.SetActive(false);
-            GameManager.Instance.RestartGame();
+            player.gameStarted = false;
+            BallManager.Instance.CreateBall(player, BallManager.Instance.ballRedPrefab);
             EndEpisode();
         }
-        if (player.lives < 1) {
-            SetReward(0.5f);
+        if (player.gameOverScreen.activeSelf) {
+            SetReward(-1f);
             player.gameOverScreen.SetActive(false);
-            GameManager.Instance.RestartGame();
+            player.gameStarted = false;
+            BallManager.Instance.CreateBall(player, BallManager.Instance.ballRedPrefab);
             EndEpisode();
+
         }
+
     }
 
-    // private void OnCollisionEnter(Collision other) {
-    //     if (other.gameObject.CompareTag("Ball")) {
-    //         Debug.Log("paddle hit ball");
-    //         SetReward(0.01f);
-    //     }
-    // }
+    private void OnCollisionEnter2D(Collision2D other) {
+      if (other.collider.tag.Equals("Ball")) {
+        Debug.Log("ball hits paddle");
+        SetReward(0.1f);
+      }
+    }
 
 
     public override void Heuristic(in ActionBuffers actionsOut)
