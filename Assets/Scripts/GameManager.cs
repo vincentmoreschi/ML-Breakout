@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public int initialLives = 3;
+    // public int initialLives = GameSettings.livesSelection;
     public int brickPoints;  // Number of points given for each brick hitpoint
 
     public Player[] players { get; set; }  // { human, AI }
@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
         // The first index is reserved for the human player.
         // The second index is reversed for the AI player.
         // Elements in the array may be null if only the human or AI is playing.
+        Debug.Log("gamemanager gamesettingsinitiallives="+GameSettings.livesSelection);
+        // Debug.Log("gamemanager initiallives="+initialLives);
         players = new Player[2];
 
         GameObject human = GameObject.Find("Human");
@@ -111,7 +113,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ResetLives(Player player)
     {
-        player.lives = initialLives;
+        player.lives = GameSettings.livesSelection;
         UIManager.Instance.UpdateLivesText(player);
     }
 
@@ -133,4 +135,43 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
     }
+
+    // public void setNumberLives(int lives) {
+    //     Debug.Log("lives updated to " + lives);
+    //     switch(lives)
+    //     {
+    //         case 0:
+    //             foreach (Player player in players)
+    //             {
+    //                 if ( player != null )
+    //                 {
+    //                     player.lives = 3;
+    //                     UIManager.Instance.UpdateLivesText(player);
+    //                 }
+    //             }
+    //             break;
+    //         case 1:
+    //             foreach (Player player in players)
+    //             {
+    //                 if ( player != null )
+    //                 {
+    //                     player.lives = 5;
+    //                     UIManager.Instance.UpdateLivesText(player);
+    //                 }
+    //             }
+    //             break;
+    //         case 2:
+    //             foreach (Player player in players)
+    //             {
+    //                 if ( player != null )
+    //                 {
+    //                     player.lives = 10;
+    //                     UIManager.Instance.UpdateLivesText(player);
+    //                 }
+    //             }
+    //             break;
+    //     }
+    // }
+
+
 }
