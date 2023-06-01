@@ -961,7 +961,7 @@ RectTransform:
   - {fileID: 760843802}
   - {fileID: 1370784241}
   m_Father: {fileID: 391035948}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -1344,9 +1344,9 @@ RectTransform:
   - {fileID: 1443192746}
   - {fileID: 12096007}
   - {fileID: 2016105100}
+  - {fileID: 341955360}
   - {fileID: 781622773}
   - {fileID: 1464972911}
-  - {fileID: 341955360}
   m_Father: {fileID: 824862253}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1707,7 +1707,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 781622772}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1715,11 +1715,11 @@ RectTransform:
   - {fileID: 143900845}
   - {fileID: 1167721364}
   m_Father: {fileID: 391035948}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -350, y: -200}
+  m_AnchoredPosition: {x: -349.99988, y: -200}
   m_SizeDelta: {x: 100, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &781622774
@@ -1778,7 +1778,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 143900846}
   toggleTransition: 1
   graphic: {fileID: 109395889}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 1464972912}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2142,6 +2142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 899382540}
   - component: {fileID: 899382541}
+  - component: {fileID: 899382542}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -2176,9 +2177,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af8ee253c6f6ccb4cabe1851030424c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverScreen: {fileID: 0}
-  initialLives: 3
   brickPoints: 0
+--- !u!114 &899382542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899382538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9a240a7a99a33646adc2d12bd6eaca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &931919680
 GameObject:
   m_ObjectHideFlags: 0
@@ -3449,7 +3460,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1464972910}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3457,11 +3468,11 @@ RectTransform:
   - {fileID: 390338178}
   - {fileID: 113984208}
   m_Father: {fileID: 391035948}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -500, y: -200}
+  m_AnchoredPosition: {x: -499.99988, y: -200}
   m_SizeDelta: {x: 100, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1464972912
@@ -3476,7 +3487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AllowSwitchOff: 1
+  m_AllowSwitchOff: 0
 --- !u!114 &1464972913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3520,7 +3531,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 390338179}
   toggleTransition: 1
   graphic: {fileID: 966349794}
-  m_Group: {fileID: 0}
+  m_Group: {fileID: 1464972912}
   onValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4335,7 +4346,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 899382542}
+        m_TargetAssemblyTypeName: OptionsMenu, Assembly-CSharp
+        m_MethodName: numberOfLives
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &2016105102
 MonoBehaviour:

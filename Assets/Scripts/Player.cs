@@ -30,7 +30,8 @@ public class Player : MonoBehaviour
 
         currentLevel = LevelManager.Instance.initialLevel;
         score = 0;
-        lives = GameManager.Instance.initialLives;
+        // lives = GameManager.Instance.initialLives;
+        lives = GameSettings.livesSelection;
 
         paddle = transform.Find("Paddle").GetComponent<Paddle>();
 
