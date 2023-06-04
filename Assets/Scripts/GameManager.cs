@@ -63,6 +63,8 @@ public class GameManager : MonoBehaviour
         if (AI != null)
         {
             players[1] = AI.GetComponent<Player>();
+
+
         }
 
         // Update UI

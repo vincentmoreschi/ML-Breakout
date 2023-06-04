@@ -397,65 +397,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48176467}
   m_CullTransparentMesh: 1
---- !u!1 &80263408
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 80263409}
-  - component: {fileID: 80263410}
-  m_Layer: 0
-  m_Name: RaysRight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &80263409
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 80263408}
-  m_LocalRotation: {x: 0, y: 0, z: -0.5, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 0.49, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 272208455}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -60}
---- !u!114 &80263410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 80263408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f67c7e722ba14acd9153bb4488bff6e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SensorName: RaysRight
-  m_DetectableTags:
-  - Ball
-  - Brick
-  m_RaysPerDirection: 5
-  m_MaxRayDegrees: 30
-  m_SphereCastRadius: 0.1
-  m_RayLength: 20
-  m_RayLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967227
-  m_ObservationStacks: 1
-  m_AlternatingRayOrder: 1
-  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &93914141
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,11 +600,7 @@ GameObject:
   - component: {fileID: 272208453}
   - component: {fileID: 272208452}
   - component: {fileID: 272208451}
-  - component: {fileID: 272208458}
   - component: {fileID: 272208457}
-  - component: {fileID: 272208450}
-  - component: {fileID: 272208448}
-  - component: {fileID: 272208447}
   - component: {fileID: 272208456}
   m_Layer: 0
   m_Name: Paddle
@@ -672,67 +609,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &272208447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 272208446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2902496c0120472b90269f94a0aec7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Record: 0
-  NumStepsToRecord: 0
-  DemonstrationName: Demo
-  DemonstrationDirectory: Demo
---- !u!114 &272208448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 272208446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecisionPeriod: 5
-  TakeActionsBetweenDecisions: 1
---- !u!114 &272208450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 272208446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BrainParameters:
-    VectorObservationSize: 5
-    NumStackedVectorObservations: 1
-    m_ActionSpec:
-      m_NumContinuousActions: 1
-      BranchSizes: 02000000
-    VectorActionSize: 
-    VectorActionDescriptions: []
-    VectorActionSpaceType: 1
-    hasUpgradedBrainParametersWithActionSpec: 1
-  m_Model: {fileID: 5022602860645237092, guid: 39151e90cd7db85448a36e5c7a19ece6, type: 3}
-  m_InferenceDevice: 0
-  m_BehaviorType: 0
-  m_BehaviorName: My Behavior
-  TeamId: 0
-  m_UseChildSensors: 1
-  m_UseChildActuators: 1
-  m_DeterministicInference: 0
-  m_ObservableAttributeHandling: 0
 --- !u!114 &272208451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -752,7 +628,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 272208446}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ca9efd3a3ba9194498dc0e25dcec9c6, type: 3}
   m_Name: 
@@ -856,10 +732,7 @@ Transform:
   m_LocalPosition: {x: 0, y: -4.2, z: 0}
   m_LocalScale: {x: 1.25, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 545655217}
-  - {fileID: 1110048270}
-  - {fileID: 80263409}
+  m_Children: []
   m_Father: {fileID: 115611830}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -872,30 +745,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 272208446}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88b6042bc9a5d4aa58d931eae49442e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 02f22e0a3e1d5c24083db8d9b882dab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
+  bricks: 0
+  ball: {fileID: 0}
 --- !u!114 &272208457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 272208446}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 863e292b05c9da14cb2c3658c1f77399, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
---- !u!114 &272208458
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -904,13 +763,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 272208446}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54f1f8f2b2b9df4478232f67b69206bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 25000
+  m_BrainParameters:
+    VectorObservationSize: 5
+    NumStackedVectorObservations: 1
+    m_ActionSpec:
+      m_NumContinuousActions: 2
+      BranchSizes: 
+    VectorActionSize: 02000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 1
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 5022602860645237092, guid: 39dcd29a5731a0549b7cd721186d7ee6, type: 3}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: My Behavior
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_DeterministicInference: 0
+  m_ObservableAttributeHandling: 0
 --- !u!1 &296825550
 GameObject:
   m_ObjectHideFlags: 0
@@ -1568,65 +1442,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &545655216
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 545655217}
-  - component: {fileID: 545655218}
-  m_Layer: 0
-  m_Name: RaysTop
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &545655217
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 545655216}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.58, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 272208455}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &545655218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 545655216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f67c7e722ba14acd9153bb4488bff6e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SensorName: RaysTop
-  m_DetectableTags:
-  - Ball
-  - Brick
-  m_RaysPerDirection: 10
-  m_MaxRayDegrees: 30
-  m_SphereCastRadius: 0.2
-  m_RayLength: 20
-  m_RayLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967227
-  m_ObservationStacks: 1
-  m_AlternatingRayOrder: 1
-  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &611178645
 GameObject:
   m_ObjectHideFlags: 0
@@ -2065,65 +1880,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1110048269
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1110048270}
-  - component: {fileID: 1110048271}
-  m_Layer: 0
-  m_Name: RaysLeft
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1110048270
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1110048269}
-  m_LocalRotation: {x: 0, y: 0, z: 0.5, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 0.49, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 272208455}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 60}
---- !u!114 &1110048271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1110048269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f67c7e722ba14acd9153bb4488bff6e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SensorName: RaysLeft
-  m_DetectableTags:
-  - Ball
-  - Brick
-  m_RaysPerDirection: 5
-  m_MaxRayDegrees: 30
-  m_SphereCastRadius: 0.1
-  m_RayLength: 20
-  m_RayLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967227
-  m_ObservationStacks: 1
-  m_AlternatingRayOrder: 1
-  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
-  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1336629497
 GameObject:
   m_ObjectHideFlags: 0
