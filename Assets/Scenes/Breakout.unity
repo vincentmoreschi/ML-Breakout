@@ -1745,7 +1745,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af8ee253c6f6ccb4cabe1851030424c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialLives: 3
   brickPoints: 50
 --- !u!1 &1623582118
 GameObject:
@@ -2203,6 +2202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballRedPrefab: {fileID: 8328126268780514528, guid: b8d9c7b641af9914196d6a5af94d1dd6, type: 3}
+  ballBluePrefab: {fileID: 8328126268780514528, guid: 23a0be125a5ecee4c9aa4281e03b7f68, type: 3}
   ballStartForce: 400
   padding: 0.26
 --- !u!1 &1813720635

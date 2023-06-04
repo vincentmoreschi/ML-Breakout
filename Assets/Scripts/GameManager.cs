@@ -133,45 +133,15 @@ public class GameManager : MonoBehaviour
 
     public void LoadMainMenu()
     {
+        GameSettings.livesSelection = 3;
+        GameSettings.agentDifficulty = 0;
+        GameSettings.ballColor = "Red";
         SceneManager.LoadScene("MainMenu");
     }
 
-    // public void setNumberLives(int lives) {
-    //     Debug.Log("lives updated to " + lives);
-    //     switch(lives)
-    //     {
-    //         case 0:
-    //             foreach (Player player in players)
-    //             {
-    //                 if ( player != null )
-    //                 {
-    //                     player.lives = 3;
-    //                     UIManager.Instance.UpdateLivesText(player);
-    //                 }
-    //             }
-    //             break;
-    //         case 1:
-    //             foreach (Player player in players)
-    //             {
-    //                 if ( player != null )
-    //                 {
-    //                     player.lives = 5;
-    //                     UIManager.Instance.UpdateLivesText(player);
-    //                 }
-    //             }
-    //             break;
-    //         case 2:
-    //             foreach (Player player in players)
-    //             {
-    //                 if ( player != null )
-    //                 {
-    //                     player.lives = 10;
-    //                     UIManager.Instance.UpdateLivesText(player);
-    //                 }
-    //             }
-    //             break;
-    //     }
-    // }
-
+    public void OptionsLoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 
 }

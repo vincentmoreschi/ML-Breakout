@@ -30,7 +30,11 @@ public class BallManager : MonoBehaviour
         {
             if (player != null)
             {
-                CreateBall(player, ballRedPrefab);
+                if (GameSettings.ballColor == "Red") {
+                    CreateBall(player, ballRedPrefab);
+                } else {
+                    CreateBall(player, ballBluePrefab);
+                }
             }
         }
     }
@@ -93,6 +97,10 @@ public class BallManager : MonoBehaviour
     public void ResetBall(Player player)
     {
         DestroyBalls(player);
-        CreateBall(player, ballRedPrefab);
+        if (GameSettings.ballColor == "Red") {
+            CreateBall(player, ballRedPrefab);
+        } else {
+            CreateBall(player, ballBluePrefab);
+        }
     }
 }

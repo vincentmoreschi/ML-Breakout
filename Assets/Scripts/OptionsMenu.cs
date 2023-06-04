@@ -24,7 +24,7 @@ public class OptionsMenu : MonoBehaviour
     }
 
     public void agentDifficulty (int difficulty) {
-        Debug.Log("difficulty updated to " + difficulty);
+        // Debug.Log("difficulty updated to " + difficulty);
         switch(difficulty)
         {
             case 0:
@@ -45,6 +45,6 @@ public class OptionsMenu : MonoBehaviour
         } else {
             GameSettings.ballColor = "Blue";    
         }
-        Debug.Log(GameSettings.ballColor);
+        // Debug.Log(GameSettings.ballColor);
     }
 }
