@@ -20,6 +20,7 @@ public class BallManager : MonoBehaviour
     #endregion
 
     public Ball ballRedPrefab;
+    public Ball ballBluePrefab;
     public float ballStartForce;
     public float padding;  // Padding between ball and paddle
 
