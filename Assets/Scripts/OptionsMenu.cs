@@ -21,20 +21,30 @@ public class OptionsMenu : MonoBehaviour
                 GameSettings.livesSelection = 10;
                 break;
         }
-        GameObject livesValue = GameObject.Find("Lives Dropdown");
-        Debug.Log(livesValue);
     }
 
-    // public void agentDifficulty (int difficulty) {
-    //     Debug.Log("difficulty updated to " + difficulty);
-    //     switch(difficulty)
-    //     {
-    //     }
-    // }
+    public void agentDifficulty (int difficulty) {
+        // Debug.Log("difficulty updated to " + difficulty);
+        switch(difficulty)
+        {
+            case 0:
+                GameSettings.agentDifficulty = 0;
+                break;
+            case 1:
+                GameSettings.agentDifficulty = 1;
+                break;
+            case 2:
+                GameSettings.agentDifficulty = 2;
+                break;
+        }
+    }
 
-    // public void finish () {
-    //     TMPro.TMP_Dropdown livesDropdown;
-    //     GameObject livesValue = GameObject.Find("Lives Dropdown");
-    //     Debug.Log(livesValue);
-    // }
+    public void toggleColor () {
+        if (GameSettings.ballColor == "Blue") {
+            GameSettings.ballColor = "Red";    
+        } else {
+            GameSettings.ballColor = "Blue";    
+        }
+        // Debug.Log(GameSettings.ballColor);
+    }
 }

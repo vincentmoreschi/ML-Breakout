@@ -20,6 +20,7 @@ public class BallManager : MonoBehaviour
     #endregion
 
     public Ball ballRedPrefab;
+    public Ball ballBluePrefab;
     public float ballStartForce;
     public float padding;  // Padding between ball and paddle
 
@@ -29,7 +30,11 @@ public class BallManager : MonoBehaviour
         {
             if (player != null)
             {
-                CreateBall(player, ballRedPrefab);
+                if (GameSettings.ballColor == "Red") {
+                    CreateBall(player, ballRedPrefab);
+                } else {
+                    CreateBall(player, ballBluePrefab);
+                }
             }
         }
     }
@@ -92,6 +97,10 @@ public class BallManager : MonoBehaviour
     public void ResetBall(Player player)
     {
         DestroyBalls(player);
-        CreateBall(player, ballRedPrefab);
+        if (GameSettings.ballColor == "Red") {
+            CreateBall(player, ballRedPrefab);
+        } else {
+            CreateBall(player, ballBluePrefab);
+        }
     }
 }

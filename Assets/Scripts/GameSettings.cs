@@ -6,5 +6,5 @@ public class GameSettings
 {
     public static int livesSelection { get; set; } = 3;
     public static int agentDifficulty { get; set; } = 0;
-    public static string ballColor { get; set; } = "Blue";
+    public static string ballColor { get; set; } = "Red";
 }
