@@ -6,7 +6,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 
-public class PaddleAgent : Agent
+public class PaddleAgentVM : Agent
 {
     private Player player;
 
@@ -22,7 +22,7 @@ public class PaddleAgent : Agent
 
         ball = GameObject.Find("Ball Red(Clone)");
        
-       bricks = player.RemainingBricks;
+        bricks = player.RemainingBricks;
     }
 
     public override void OnEpisodeBegin(){

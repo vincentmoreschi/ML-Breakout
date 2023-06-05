@@ -24,7 +24,7 @@ public class OptionsMenu : MonoBehaviour
     }
 
     public void agentDifficulty (int difficulty) {
-        // Debug.Log("difficulty updated to " + difficulty);
+        Debug.Log("difficulty updated to " + difficulty);
         switch(difficulty)
         {
             case 0:
