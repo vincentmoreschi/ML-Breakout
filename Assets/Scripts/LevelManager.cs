@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -46,26 +47,33 @@ public class LevelManager : MonoBehaviour
     {
         _levelsHpData = LoadLevelsHpData();
         _levelsColorsData = LoadLevelsColorsData();
-                Debug.Log("Difficulty: "+GameSettings.agentDifficulty);
 
-            if(GameSettings.agentDifficulty == 0){
+        Scene scene = SceneManager.GetActiveScene();
+        if (scene.name == "Versus")
+        {
+            if (GameSettings.agentDifficulty == 0)
+            {
                 easy.name = "Paddle";
                 easy.SetActive(true);
                 medium.SetActive(false);
                 hard.SetActive(false);
             }
-            if(GameSettings.agentDifficulty == 1){
+            if (GameSettings.agentDifficulty == 1)
+            {
                 medium.name = "Paddle";
                 easy.SetActive(false);
                 medium.SetActive(true);
                 hard.SetActive(false);
             }
-            if(GameSettings.agentDifficulty == 2){
+            if (GameSettings.agentDifficulty == 2)
+            {
                 hard.name = "Paddle";
                 easy.SetActive(false);
                 medium.SetActive(false);
                 hard.SetActive(true);
             }
+        }
+
         foreach (Player player in GameManager.Instance.players)
         {
             if (player != null)
